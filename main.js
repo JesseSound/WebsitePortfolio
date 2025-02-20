@@ -8,7 +8,7 @@ document.body.appendChild(renderer.domElement);
 // Load models
 const loader = new THREE.GLTFLoader(); // Use GLTFLoader from the CDN
 let ABoutMeModel;
-loader.load('/AboutMe.glb', (gltf) => {
+loader.load('./AboutMe.glb', (gltf) => {
     ABoutMeModel = gltf.scene;
     ABoutMeModel.scale.set(1, 1, 1);
     ABoutMeModel.rotation.x = Math.PI / 2;
@@ -19,7 +19,7 @@ loader.load('/AboutMe.glb', (gltf) => {
 });
 
 let OtherModel;
-loader.load('/AboutMe.glb', (gltf) => {
+loader.load('./AboutMe.glb', (gltf) => {
     OtherModel = gltf.scene;
     OtherModel.scale.set(1, 1, 1);
     OtherModel.rotation.x = Math.PI / 2;

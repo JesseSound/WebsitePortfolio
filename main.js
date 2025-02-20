@@ -152,10 +152,10 @@ function onWindowResize() {
 document.addEventListener('wheel', function (event) {
     if (event.deltaY > 0) {
         console.log('Mouse wheel scrolled down');
-        camera.position.y += 0.55;
+        camera.position.y -= 0.55;
     } else if (event.deltaY < 0) {
         console.log('Mouse wheel scrolled up');
-        camera.position.y -= 0.5;
+        camera.position.y += 0.5;
     }
 });
 

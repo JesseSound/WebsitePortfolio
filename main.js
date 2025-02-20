@@ -53,7 +53,7 @@
             tempCanvas.height = renderer.domElement.height;
             const tempCtx = tempCanvas.getContext("2d");
 
-            // Draw the WebGL renderer's output onto the 2D canvas
+            // Draw the WebGL renderer's output o nto the 2D canvas
             tempCtx.drawImage(renderer.domElement, 0, 0, tempCanvas.width, tempCanvas.height);
 
             // Get the image data from the 2D canvas

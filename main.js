@@ -6,30 +6,40 @@
         document.body.appendChild(renderer.domElement);
 		
         let cubes = [];
-        
+		const pointLight1 = new THREE.PointLight( 0xffffff, 3, 0, 0 );
+		pointLight1.position.set( 500, 500, 500 );
+		scene.add( pointLight1 );
+
+		const pointLight2 = new THREE.PointLight( 0xffffff, 1, 0, 0 );
+		pointLight2.position.set( - 500, - 500, - 500 );
+		scene.add( pointLight2 );
         // Track the previous window size
         let previousWidth = window.innerWidth;
         let previousHeight = window.innerHeight;
-
+		
 		function createCube() {
 			let geometry = new THREE.BoxGeometry();
 			
-			// Create a new material instance for each cube
 			let cubeMaterial = new THREE.MeshBasicMaterial({ 
 				color: 0xffffff, 
 				wireframe: true,
-				transparent: true // Ensure transparency is enabled
+				transparent: true 
 			});
 		
 			let cube = new THREE.Mesh(geometry, cubeMaterial);
 		
-			// Randomize positions based on the current window size
 			let rangeX = window.innerWidth / 2;
 			let rangeY = window.innerHeight / 2;
+		
+			// Ensure the cube spawns at least a certain distance away from the camera
+			let minZ = 10;   // Minimum safe distance
+			let maxZ = 60;   // Maximum spawn distance
+			let zPosition = Math.random() * (maxZ - minZ) + minZ; 
+		
 			cube.position.set(
 				Math.random() * rangeX - rangeX / 2,  
 				Math.random() * rangeY - rangeY / 2,  
-				Math.random() * 40 - 20             
+				zPosition // Ensure it's far enough
 			);
 			cube.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
 		
@@ -37,6 +47,7 @@
 			cubes.push(cube);
 		}
 		
+	
 		const geometry = new THREE.BoxGeometry( 1, 1, 1 );
 		const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
 		const cube2 = new THREE.Mesh( geometry, material );
@@ -104,7 +115,7 @@
                 if (cube.position.y < -20) {
                     cube.position.y = 20;
                     cube.position.x = Math.random() * 40 - 20;
-                    cube.position.z = Math.random() * 40 - 20;
+                    cube.position.z = Math.random() * 40 - 10;
                     cube.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
                 }
 				updateOpacityBasedOnZ(cube);
@@ -112,7 +123,8 @@
             });
 
             renderer.render(scene, camera);
-            //renderToASCII();
+            effect = new AsciiEffect( renderer, ' .:-+*=%@#', { invert: true } );
+			effect.render( scene, camera );
         }
 
         // Handle window resize

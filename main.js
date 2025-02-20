@@ -73,7 +73,8 @@ function createCube() {
 }
 
 camera.position.z = 5;
-camera.position.y= 5;
+camera.position.y = 0;
+
 // Update opacity based on Z position
 function updateOpacityBasedOnZ(object) {
     const minZ = -10;  // Define the minimum Z value
@@ -133,14 +134,22 @@ function onWindowResize() {
         camera.aspect = newWidth / newHeight;
         camera.updateProjectionMatrix();
 
+        // Adjust models and cubes positions based on new size
+        if (ABoutMeModel) {
+            ABoutMeModel.position.set(0, 2, 0); // Ensure ABoutMeModel remains centered
+        }
+
+        if (OtherModel) {
+            OtherModel.position.set(0, -2, 0); // Ensure OtherModel remains centered
+        }
+
         previousWidth = newWidth;
         previousHeight = newHeight;
     }
 }
 
 // Scroll event handler to update camera position
-
-document.addEventListener('wheel', function(event) {
+document.addEventListener('wheel', function (event) {
     if (event.deltaY > 0) {
         console.log('Mouse wheel scrolled down');
         camera.position.y += 0.55;

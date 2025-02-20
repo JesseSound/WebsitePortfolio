@@ -1,18 +1,45 @@
 
+
+        //import * as THREE from "./node_modules/three/build/three.module.js";
+       
         let scene = new THREE.Scene();
         let camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         let renderer = new THREE.WebGLRenderer();
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(renderer.domElement);
-		
-        let cubes = [];
-		const pointLight1 = new THREE.PointLight( 0xffffff, 3, 0, 0 );
-		pointLight1.position.set( 500, 500, 500 );
-		scene.add( pointLight1 );
 
-		const pointLight2 = new THREE.PointLight( 0xffffff, 1, 0, 0 );
-		pointLight2.position.set( - 500, - 500, - 500 );
-		scene.add( pointLight2 );
+        const loader = new THREE.GLTFLoader(); // Use GLTFLoader from the CDN
+        let ABoutMeModel;
+
+        loader.load('/AboutMe.glb', (gltf) => {
+            ABoutMeModel = gltf.scene;
+            ABoutMeModel.scale.set(1, 1, 1);
+            ABoutMeModel.rotation.x = Math.PI / 2; 
+            scene.add(ABoutMeModel);
+        }, undefined, (error) => {
+            console.error(error);
+        });
+
+
+// Create a PointLight
+const pointLight = new THREE.PointLight(0xffffff, 10, 100); // color, intensity, distance
+pointLight.position.set(10, 5, 10); // Position the light at x=10, y=10, z=10
+
+// Add the light to the scene
+scene.add(pointLight);
+
+// Optionally, add a helper to visualize the light's position
+const pointLightHelper = new THREE.PointLightHelper(pointLight, 1);
+scene.add(pointLightHelper);
+
+
+
+
+
+
+
+        let cubes = [];
+	
         // Track the previous window size
         let previousWidth = window.innerWidth;
         let previousHeight = window.innerHeight;
@@ -48,44 +75,13 @@
 		}
 		
 	
-		const geometry = new THREE.BoxGeometry( 1, 1, 1 );
-		const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-		const cube2 = new THREE.Mesh( geometry, material );
-		scene.add( cube2 );
+		
         camera.position.z = 5;
 
-        let asciiContainer = document.createElement("pre");
-        document.body.appendChild(asciiContainer);
+     
+        
 
-        function renderToASCII() {
-            // Create a temporary 2D canvas for ASCII rendering
-            const tempCanvas = document.createElement("canvas");
-            tempCanvas.width = renderer.domElement.width;
-            tempCanvas.height = renderer.domElement.height;
-            const tempCtx = tempCanvas.getContext("2d");
-
-            // Draw the WebGL renderer's output o nto the 2D canvas
-            tempCtx.drawImage(renderer.domElement, 0, 0, tempCanvas.width, tempCanvas.height);
-
-            // Get the image data from the 2D canvas
-            const imageData = tempCtx.getImageData(0, 0, tempCanvas.width, tempCanvas.height).data;
-            const chars = " .:-=+*%@#";
-            let ascii = "";
-
-            // Convert the image data to ASCII
-            for (let y = 0; y < tempCanvas.height; y += 10) {
-                for (let x = 0; x < tempCanvas.width; x += 5) {
-                    const i = (y * tempCanvas.width + x) * 4;
-                    const brightness = (imageData[i] + imageData[i + 1] + imageData[i + 2]) / 3;
-                    const charIndex = Math.floor((brightness / 255) * (chars.length - 1));
-                    ascii += chars[charIndex];
-                }
-                ascii += "\n";
-            }
-
-            // Update the ASCII container
-            asciiContainer.textContent = ascii;
-        }
+        
 		function updateOpacityBasedOnZ(object) {
 			const minZ = -10;  // Define the minimum Z value
 			const maxZ = 10;   // Define the maximum Z value
@@ -99,15 +95,27 @@
 			object.material.opacity = normalizedZ;
 			object.material.needsUpdate = true;
 		}
+
+        let clock = new THREE.Clock();
         function animate() {
             requestAnimationFrame(animate);
-            cube2.rotation.x += 0.01;
-	        cube2.rotation.y += 0.01
+            
             // Add a new cube periodically to maintain a constant stream
             if (Math.random() < 0.5) {
                 createCube();
             }
+              
+    let delta = clock.getDelta();
+       // Rock the model back and forth
+       if (ABoutMeModel) {
+        let delta = clock.getDelta();
+        // Rock the model back and forth
+        ABoutMeModel.rotation.z = Math.sin(clock.getElapsedTime()) * 0.05; // Rock along x-axis
+        ABoutMeModel.rotation.y = Math.cos(clock.getElapsedTime()) * 0.05; // Rock along z-axis
+    }
 
+       
+          
             cubes.forEach(cube => {
                 cube.position.y -= 0.03;
                 cube.rotation.x += 0.001;
@@ -123,8 +131,7 @@
             });
 
             renderer.render(scene, camera);
-            effect = new AsciiEffect( renderer, ' .:-+*=%@#', { invert: true } );
-			effect.render( scene, camera );
+            
         }
 
         // Handle window resize

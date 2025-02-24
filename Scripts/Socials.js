@@ -2,17 +2,21 @@
 let scene = new THREE.Scene();
 let camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 let renderer = new THREE.WebGLRenderer();
+scene.background = new THREE.Color(0x95AD9D); // Gray
+
+
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
+
 
 // Load models
 let models =[];
 const loader = new THREE.GLTFLoader(); // Use GLTFLoader from the CDN
-let AboutMeModel;
-let TestimonialsModel;
-let RepoModel;
-let ProjectsModel;
-let SocialsModel;
+let InstagramModel;
+let LinkedInModel;
+let TikTokModel;
+let BackModel;
+
 // Store original positions of models on load (not on click)
 const originalPositions = new Map();
 

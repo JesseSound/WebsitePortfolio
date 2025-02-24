@@ -4,15 +4,66 @@ let camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHei
 let renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
+const renderer2D = new THREE.CSS2DRenderer();
+renderer2D.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer2D.domElement);
 
-// Load models
+
+
+const planes =[];
+
+const textureLoader = new THREE.TextureLoader();
+const backgroundTexture = textureLoader.load('textures/textBackground.png');
+
+
+// Create a plane with the transparent image texture
+const planeGeometry = new THREE.PlaneGeometry(10, 6); // Adjust size as needed
+const planeMaterial = new THREE.MeshBasicMaterial({
+  map: backgroundTexture,
+  transparent: true, // Ensures transparency is respected
+  opacity: 0.5, // You can adjust the opacity
+});
+const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+plane.position.set(0, 16, -5); // Position it behind the text
+plane.scale.x =window.innerWidth;
+planes.push(plane);
+
+
+
+const myFaceTexture = textureLoader.load('textures/myFace.png');
+const faceGeometry = new THREE.PlaneGeometry(10, 6); // Adjust size as needed
+const myFaceMaterial = new THREE.MeshBasicMaterial({
+  map: myFaceTexture,
+  transparent: true, // Ensures transparency is respected
+  opacity: 0.8, // You can adjust the opacity
+});
+const facePlane = new THREE.Mesh(faceGeometry, myFaceMaterial);
+facePlane.position.set(1,0,-5);
+planes.push(facePlane);
+
+
+
+const bassTexture = textureLoader.load("textures/bass.jpg");
+const bassGeometry = new THREE.PlaneGeometry(10, 6); // Adjust size as needed
+const bassMaterial = new THREE.MeshBasicMaterial({
+  map:bassTexture,
+  transparent: true, // Ensures transparency is respected
+  opacity: 0.8, // You can adjust the opacity
+});
+const bassPlane = new THREE.Mesh(bassGeometry, bassMaterial);
+bassPlane.position.set(-3,0,-5);
+bassPlane.scale.set(.5, 1, 1);
+planes.push(bassPlane);
+
+
+
+
+
+
+
 let models =[];
 const loader = new THREE.GLTFLoader(); // Use GLTFLoader from the CDN
-let AboutMeModel;
-let TestimonialsModel;
-let RepoModel;
-let ProjectsModel;
-let SocialsModel;
+let BackModel;
 // Store original positions of models on load (not on click)
 const originalPositions = new Map();
 
@@ -39,6 +90,36 @@ function loadModel(name, path, position, scale, rotation) {
         console.error(error);
     });
 }
+
+
+// Create a div element for the text overlay
+let textOverlay = document.createElement('div');
+textOverlay.style.position = 'absolute'; // Change to absolute to position relative to the document
+textOverlay.style.top = '50%';  // Start at the center vertically (or any value you want)
+textOverlay.style.left = '20px'; // Position on the left side
+textOverlay.style.transform = 'translateY(-0%)'; // Center vertically
+textOverlay.style.color = 'white';
+textOverlay.style.fontSize = '24px';
+textOverlay.style.overflowY = 'auto';  // Allow scrolling
+textOverlay.style.maxHeight = '80%';  // Limit the height, adjust as needed
+
+document.body.appendChild(textOverlay);
+
+
+// Handle mouse wheel scroll to scroll the text overlay
+document.addEventListener('wheel', function (event) {
+    //event.preventDefault(); // Prevent default scrolling behavior for text overlay
+
+    // Scroll the text overlay
+    if (event.deltaY > 0) {
+        textOverlay.scrollTop += 20; // Scroll down
+    } else {
+        textOverlay.scrollTop -= 20; // Scroll up
+    }
+}, { passive: false });
+
+
+
 
 // Function to update model layout based on screen size
 function updateLayout() {
@@ -68,13 +149,14 @@ function updateLayout() {
 }
 
 // Load models and apply layout based on screen size
-loadModel('AboutMeModel', 'Models/AboutMe.glb', [0, 2, 0], [1, 0.5, 1], [Math.PI / 2, 0, 0]);
-loadModel('TestimonialsModel', 'Models/Testimonials.glb', [0, -2, 0], [1, 0.5, 1], [Math.PI / 2, 0, 0]);
-loadModel('RepoModel', 'Models/repos.glb', [5, 2, 0], [1, 0.5, 1], [Math.PI / 2, 0, 0]);
-loadModel('ProjectsModel', 'Models/Projects.glb', [-5, 2, 0], [1, 0.5, 1], [Math.PI / 2, 0, 0]);
-loadModel('SocialsModel', 'Models/Socials.glb', [-5, -2, 0], [1, 0.5, 1], [Math.PI / 2, 0, 0]);
+//loadModel('BackModel', 'Models/Back.glb', [0, camera.position.y - 4, 0], [0.5, 0.5, 0.5], [Math.PI / 2, 0, 0]);
 
 
+// Update layout when screen size changes
+window.addEventListener('resize', updateLayout);
+
+// Initial layout adjustment
+updateLayout();
 
 
 
@@ -150,11 +232,11 @@ function updateOpacityBasedOnZ(object) {
 let clock = new THREE.Clock();
 let isRotating = false;  // Flag to check if the rotation animation is running
 // Animation loop
-
+// Animation loop
+// Animation loop
 function animate() {
     requestAnimationFrame(animate);
-// Initial layout adjustment
-updateLayout();
+
     // Add a new cube periodically to maintain a constant stream
     if (Math.random() < 0.5 && cubes.length < 1500) {
         createCube();
@@ -162,38 +244,40 @@ updateLayout();
 
     let delta = clock.getDelta();
 
-
-
-        for(let i = 0; i <= models.length -1; i++ ){
-            if(!isRotating){
-            models[i].rotation.z = Math.sin(clock.getElapsedTime()) * 0.05; 
-            models[i].rotation.y = Math.cos(clock.getElapsedTime()) * 0.05; 
-            }
+    // Rotate models in the 3D space if necessary
+    for(let i = 0; i <= models.length - 1; i++) {
+        if(!isRotating) {
+            models[i].rotation.z = Math.sin(clock.getElapsedTime()) * 0.05;
+            models[i].rotation.y = Math.cos(clock.getElapsedTime()) * 0.05;
         }
+    }
 
-
-
-
+    // Update the plane's position to follow the camera (3D)
+    plane.position.set(camera.position.x, camera.position.y + 3, camera.position.z - 5);
 
     // Ensure cubes reset within the correct range (Z = -35 to -5)
-cubes.forEach(cube => {
-  
-    cube.position.y -= 0.03;
-    cube.rotation.x += 0.001;
-    cube.rotation.y += 0.001;
-    
-    if (cube.position.y < -20) {
-        cube.position.y = 20;
-        cube.position.x = Math.random() * 40 - 20;
-        cube.position.z = Math.random() * (-5 + 30) - 30; // Keep cube in front of the camera
-        cube.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
-    }
+    cubes.forEach(cube => {
+        cube.position.y -= 0.03;
+        cube.rotation.x += 0.001;
+        cube.rotation.y += 0.001;
+        
+        if (cube.position.y < -20) {
+            cube.position.y = 20;
+            cube.position.x = Math.random() * 40 - 20;
+            cube.position.z = Math.random() * (-5 + 30) - 30; // Keep cube in front of the camera
+            cube.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
+        }
 
         updateOpacityBasedOnZ(cube);
     });
-
+    
+    // Render the 3D scene
     renderer.render(scene, camera);
+    // Render the 2D UI (text)
+    renderer2D.render(scene, camera);
 }
+
+
 
 // Handle window resize
 function onWindowResize() {
@@ -205,42 +289,45 @@ function onWindowResize() {
         renderer.setSize(newWidth, newHeight);
         camera.aspect = newWidth / newHeight;
         camera.updateProjectionMatrix();
-
+       
         // Adjust models and cubes positions based on new size
-        if (AboutMeModel) {
-            AboutMeModel.position.set(0, 2, 0); // Ensure ABoutMeModel remains centered
+        if (BackModel) {
+            BackModel.position.y -= 6; 
+            BackModel.position.z = 0 ; 
         }
 
-        if (TestimonialsModel) {
-            TestimonialsModel.position.set(0, -2, 0); // Ensure OtherModel remains centered
-        }
-
+        
+          // Adjust the plane size to scale with 1/3rd of the screen height
+          const planeHeight = newHeight / 3; // 1/3rd of screen height
+         
+          
+          plane.scale.y = planeHeight ; // Divide by initial scale of plane (10 and 6 from PlaneGeometry)
+          
+        
         previousWidth = newWidth;
         previousHeight = newHeight;
     }
+
+    
 }
 
-document.addEventListener('wheel', function (event) {
-    event.preventDefault(); // Prevent default scrolling behavior
+// document.addEventListener('wheel', function (event) {
+//     event.preventDefault(); // Prevent default scrolling behavior for the camera
 
-    if (event.deltaY > 0) {
-        console.log('Mouse wheel scrolled down');
-        if (camera.position.y - 0.55 >= -15) { // Change -4 to -10 or any other value
-            camera.position.y -= 0.55;
-        } else {
-            camera.position.y = -15; // Adjust the lower limit as needed
-        }
-    } else if (event.deltaY < 0) {
-        console.log('Mouse wheel scrolled up');
-        if (camera.position.y + 0.5 <= 5) { // Upper limit remains the same
-            camera.position.y += 0.5;
-        } else {
-            camera.position.y = 5;
-        }
-    }
-    
-});
-
+//     if (event.deltaY > 0) {
+//         if (camera.position.y - 0.55 >= -15) { // Change -4 to -10 or any other value
+//             camera.position.y -= 0.55;
+//         } else {
+//             camera.position.y = -15; // Adjust the lower limit as needed
+//         }
+//     } else if (event.deltaY < 0) {
+//         if (camera.position.y + 0.5 <= 5) { // Upper limit remains the same
+//             camera.position.y += 0.5;
+//         } else {
+//             camera.position.y = 5;
+//         }
+//     }
+// }, { passive: false });
 
 
 // Start the animation loop
@@ -317,28 +404,13 @@ function onMouseClick(event) {
                     requestAnimationFrame(animateRotation);
                 } else {
                     isRotating = false;
-                    switch (clickedMesh) {
-                        case loadedModels['RepoModel']:
-                            window.open("https://github.com/jessesound", "_blank");
-                            return;
-                        case loadedModels['AboutMeModel']:
-                            window.location.href = "AboutMe.html";
-                            return;
-                        case loadedModels['TestimonialsModel']:
-                            window.location.href = "Testimonials.html";
-                            return;
-                        case loadedModels['SocialsModel']:
-                            window.location.href = "Socials.html";
-                            return;
-                        case loadedModels['ProjectsModel']:
-                            window.location.href = "Projects.html";
-                            return;
-                        default:
-                            // Handle the default case if needed (optional)
-                            break;
+                    
+                            
+                            window.location.href = "index.html";
+                            
                     }
                     
-                }
+                
             }
 
             animateRotation(performance.now());
@@ -369,7 +441,7 @@ let lastTouchY = 0;  // For mobile touch events
 
 // Handle mouse wheel and touchmove events
 function onScroll(event) {
-    event.preventDefault(); // Prevent default scrolling behavior
+    //event.preventDefault(); // Prevent default scrolling behavior
 
     let deltaY = 0;
     if (event.type === "wheel") {
@@ -401,7 +473,7 @@ document.addEventListener("wheel", onScroll);
 
 
 
-document.addEventListener('wheel', onScroll, { passive: false });
+//document.addEventListener('wheel', onScroll, { passive: false });
 
 document.addEventListener('touchmove', onScroll, { passive: false });
 document.addEventListener('touchstart', (e) => { lastTouchY = e.touches[0].clientY; }, { passive: false });
@@ -410,9 +482,3 @@ document.addEventListener('click', onMouseClick);
 document.addEventListener('touchend', onMouseClick); // Support touch clicks
 
 
-onWindowResize();
-// Update layout when screen size changes
-window.addEventListener('resize', updateLayout);
-
-// Initial layout adjustment
-updateLayout();

@@ -4,15 +4,47 @@ let camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHei
 let renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
+const renderer2D = new THREE.CSS2DRenderer();
+renderer2D.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer2D.domElement);
 
-// Load models
+
+
+const planes =[];
+
+const textureLoader = new THREE.TextureLoader();
+const backgroundTexture = textureLoader.load('textures/textBackground.png');
+
+
+// Create a plane with the transparent image texture
+const planeGeometry = new THREE.PlaneGeometry(10, 6); // Adjust size as needed
+const planeMaterial = new THREE.MeshBasicMaterial({
+  map: backgroundTexture,
+  transparent: true, // Ensures transparency is respected
+  opacity: 0.5, // You can adjust the opacity
+});
+const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+plane.position.set(0, 0, -5); // Position it behind the text
+plane.scale.x =window.innerWidth;
+planes.push(plane);
+
+
+
+
+
+
+
+
+
+
+for(let i = 0; i <= planes.length - 1; i++){
+scene.add(planes[i]);
+}
+
+
 let models =[];
 const loader = new THREE.GLTFLoader(); // Use GLTFLoader from the CDN
-let AboutMeModel;
-let TestimonialsModel;
-let RepoModel;
-let ProjectsModel;
-let SocialsModel;
+let BackModel;
 // Store original positions of models on load (not on click)
 const originalPositions = new Map();
 
@@ -39,6 +71,32 @@ function loadModel(name, path, position, scale, rotation) {
         console.error(error);
     });
 }
+
+
+// Create a div element for the text overlay
+let textOverlay = document.createElement('div');
+textOverlay.style.position = 'absolute';
+textOverlay.style.top = '20px';
+textOverlay.style.left = '20px';
+textOverlay.style.color = 'white';
+textOverlay.style.fontSize = '24px';
+textOverlay.innerHTML = `
+    "Jesse McCormack has been an exceptional student in my video game programming classes. He has continuously exceeded expectations with assignment submissions, and selflessly tutored countless students expecting nothing in return other than the satisfaction of lending a helping hand.<br><br>
+
+    Jesse immediately assumed the role of a mentor in semester 1. His self-taught programming background accelerated his ability to master course concepts, resulting in him helping many of his peers. He assumed a technical leadership role within his group, and would never hesitate to help people outside of his group.<br><br>
+
+    In semester 2, Jesse’s programming abilities became even more evident to me after he was introduced to the subject of graphics programming. My course was centred around signed distance fields & raymarching. Jesse took that one step further by using his background in music to write a shader that visualized audio. My final assignment required students to implement Phong lighting in a raymarched pipeline. Jesse added shadow mapping and ambient occlusion to his assignment without any formal instruction! Additionally, he asked me for permission to make a raycasting tech demo in another programming course instead of doing the original assignment, which I enthusiastically agreed to.<br><br>
+
+    In semester 3, I taught a course on rasterization in which students built a software renderer. Jesse was very curious about the inner workings of my renderer which I kept hidden in order to minimize complexity. After learning that the renderer uses the GPU to present to the screen, Jesse ported his previous work from ShaderToy to the renderer and made a new shader which rendered an ocean via raymarching.<br><br>
+
+    Overall, Jesse has been an incredibly creative and hard-working student. He’s always looking to push boundaries between implementing unique solutions to problems and persevering when the going gets tough. I think he has a very bright future ahead of him as a game developer and would highly recommend him for any programming role.<br><br>
+
+    Sincerely,<br>
+    Connor Smiley, Professor of Game Design at Georgian College."
+`;
+document.body.appendChild(textOverlay);
+
+
 
 // Function to update model layout based on screen size
 function updateLayout() {
@@ -68,13 +126,14 @@ function updateLayout() {
 }
 
 // Load models and apply layout based on screen size
-loadModel('AboutMeModel', 'Models/AboutMe.glb', [0, 2, 0], [1, 0.5, 1], [Math.PI / 2, 0, 0]);
-loadModel('TestimonialsModel', 'Models/Testimonials.glb', [0, -2, 0], [1, 0.5, 1], [Math.PI / 2, 0, 0]);
-loadModel('RepoModel', 'Models/repos.glb', [5, 2, 0], [1, 0.5, 1], [Math.PI / 2, 0, 0]);
-loadModel('ProjectsModel', 'Models/Projects.glb', [-5, 2, 0], [1, 0.5, 1], [Math.PI / 2, 0, 0]);
-loadModel('SocialsModel', 'Models/Socials.glb', [-5, -2, 0], [1, 0.5, 1], [Math.PI / 2, 0, 0]);
+loadModel('BackModel', 'Models/Back.glb', [0, camera.position.y - 4, 0], [0.5, 0.5, 0.5], [Math.PI / 2, 0, 0]);
 
 
+// Update layout when screen size changes
+window.addEventListener('resize', updateLayout);
+
+// Initial layout adjustment
+updateLayout();
 
 
 
@@ -150,11 +209,10 @@ function updateOpacityBasedOnZ(object) {
 let clock = new THREE.Clock();
 let isRotating = false;  // Flag to check if the rotation animation is running
 // Animation loop
-
+// Animation loop
 function animate() {
     requestAnimationFrame(animate);
-// Initial layout adjustment
-updateLayout();
+
     // Add a new cube periodically to maintain a constant stream
     if (Math.random() < 0.5 && cubes.length < 1500) {
         createCube();
@@ -162,38 +220,36 @@ updateLayout();
 
     let delta = clock.getDelta();
 
-
-
-        for(let i = 0; i <= models.length -1; i++ ){
-            if(!isRotating){
-            models[i].rotation.z = Math.sin(clock.getElapsedTime()) * 0.05; 
-            models[i].rotation.y = Math.cos(clock.getElapsedTime()) * 0.05; 
-            }
+    for(let i = 0; i <= models.length -1; i++) {
+        if(!isRotating) {
+            models[i].rotation.z = Math.sin(clock.getElapsedTime()) * 0.05;
+            models[i].rotation.y = Math.cos(clock.getElapsedTime()) * 0.05;
         }
-
-
-
-
-
-    // Ensure cubes reset within the correct range (Z = -35 to -5)
-cubes.forEach(cube => {
-  
-    cube.position.y -= 0.03;
-    cube.rotation.x += 0.001;
-    cube.rotation.y += 0.001;
-    
-    if (cube.position.y < -20) {
-        cube.position.y = 20;
-        cube.position.x = Math.random() * 40 - 20;
-        cube.position.z = Math.random() * (-5 + 30) - 30; // Keep cube in front of the camera
-        cube.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
     }
+
+    // Update the plane's position to follow the camera
+    plane.position.set(camera.position.x, camera.position.y + 5, camera.position.z - 5);
+    
+    // Ensure cubes reset within the correct range (Z = -35 to -5)
+    cubes.forEach(cube => {
+        cube.position.y -= 0.03;
+        cube.rotation.x += 0.001;
+        cube.rotation.y += 0.001;
+        
+        if (cube.position.y < -20) {
+            cube.position.y = 20;
+            cube.position.x = Math.random() * 40 - 20;
+            cube.position.z = Math.random() * (-5 + 30) - 30; // Keep cube in front of the camera
+            cube.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
+        }
 
         updateOpacityBasedOnZ(cube);
     });
 
+    renderer2D.render(scene, camera);  // CSS2D overlay rendering
     renderer.render(scene, camera);
 }
+
 
 // Handle window resize
 function onWindowResize() {
@@ -205,15 +261,14 @@ function onWindowResize() {
         renderer.setSize(newWidth, newHeight);
         camera.aspect = newWidth / newHeight;
         camera.updateProjectionMatrix();
-
+       
         // Adjust models and cubes positions based on new size
-        if (AboutMeModel) {
-            AboutMeModel.position.set(0, 2, 0); // Ensure ABoutMeModel remains centered
+        if (BackModel) {
+            BackModel.position.y -= 6; 
+            BackModel.position.z = 0 ; 
         }
 
-        if (TestimonialsModel) {
-            TestimonialsModel.position.set(0, -2, 0); // Ensure OtherModel remains centered
-        }
+        
 
         previousWidth = newWidth;
         previousHeight = newHeight;
@@ -239,7 +294,7 @@ document.addEventListener('wheel', function (event) {
         }
     }
     
-});
+}, { passive: false });
 
 
 
@@ -317,22 +372,13 @@ function onMouseClick(event) {
                     requestAnimationFrame(animateRotation);
                 } else {
                     isRotating = false;
-                    switch (clickedMesh) {
-                        case loadedModels['RepoModel']:
-                            window.open("https://github.com/jessesound", "_blank");
-                            return;
-                        case loadedModels['AboutMeModel']:
-                            window.location.href = "AboutMe.html";
-                            return;
-                        case loadedModels['TestimonialsModel']:
-                            window.location.href = "Testimonials.html";
-                            return;
-                        default:
-                            // Handle the default case if needed (optional)
-                            break;
+                    
+                            
+                            window.location.href = "index.html";
+                            
                     }
                     
-                }
+                
             }
 
             animateRotation(performance.now());
@@ -404,9 +450,3 @@ document.addEventListener('click', onMouseClick);
 document.addEventListener('touchend', onMouseClick); // Support touch clicks
 
 
-onWindowResize();
-// Update layout when screen size changes
-window.addEventListener('resize', updateLayout);
-
-// Initial layout adjustment
-updateLayout();

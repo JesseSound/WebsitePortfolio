@@ -327,6 +327,9 @@ function onMouseClick(event) {
                         case loadedModels['TestimonialsModel']:
                             window.location.href = "Testimonials.html";
                             return;
+                            case loadedModels['SocialsModel']:
+                            window.location.href = "Socials.html";
+                            return;
                         default:
                             // Handle the default case if needed (optional)
                             break;

@@ -45,11 +45,11 @@ function updateLayout() {
     const isMobile = window.innerWidth <= 768; // Consider screen width 768px and below as mobile
 
     const positions = [
-        [0, 2, 0],    // AboutMeModel
-        [0, -2, 0],   // TestimonialsModel
-        [5, 2, 0],    // RepoModel
-        [-5, 2, 0],   // ProjectsModel
-        [-5, -2, 0]   // SocialsModel
+        [0, 2, 0],   
+        [0, -2, 0],   
+        [5, 2, 0],    
+        [-5, 2, 0],  
+        [-5, -2, 0]  
     ];
 
     // Adjust Y values based on screen size
@@ -68,11 +68,11 @@ function updateLayout() {
 }
 
 // Load models and apply layout based on screen size
-loadModel('AboutMeModel', 'Models/AboutMe.glb', [0, 2, 0], [1, 0.5, 1], [Math.PI / 2, 0, 0]);
-loadModel('TestimonialsModel', 'Models/Testimonials.glb', [0, -2, 0], [1, 0.5, 1], [Math.PI / 2, 0, 0]);
-loadModel('RepoModel', 'Models/repos.glb', [5, 2, 0], [1, 0.5, 1], [Math.PI / 2, 0, 0]);
-loadModel('ProjectsModel', 'Models/Projects.glb', [-5, 2, 0], [1, 0.5, 1], [Math.PI / 2, 0, 0]);
-loadModel('SocialsModel', 'Models/Socials.glb', [-5, -2, 0], [1, 0.5, 1], [Math.PI / 2, 0, 0]);
+loadModel('InstagramModel', 'Models/Instagram.glb', [0, 2, 0], [1, 0.5, 1], [Math.PI / 2, 0, 0]);
+loadModel('LinkedInModel', 'Models/LinkedIn.glb', [0, 2, 0], [1, 0.5, 1], [Math.PI / 2, 0, 0]);
+loadModel('TikTokModel', 'Models/TikTok.glb', [5, 2, 0], [1, 0.5, 1], [Math.PI / 2, 0, 0]);
+loadModel('BackModel', 'Models/Back.glb', [-5, -2, 0], [1, 0.5, 1], [Math.PI / 2, 0, 0]);
+
 
 
 
@@ -318,17 +318,21 @@ function onMouseClick(event) {
                 } else {
                     isRotating = false;
                     switch (clickedMesh) {
-                        case loadedModels['RepoModel']:
-                            window.open("https://github.com/jessesound", "_blank");
+                        case loadedModels['InstagramModel']:
+                            window.open("https://www.instagram.com/_jessesound/", "_blank");
                             return;
-                        case loadedModels['AboutMeModel']:
-                            window.location.href = "AboutMe.html";
+                        case loadedModels['LinkedInModel']:
+                            window.open("https://www.linkedin.com/in/JesseEarleMcCormack", "_blank");
+                            
                             return;
-                        case loadedModels['TestimonialsModel']:
-                            window.location.href = "Testimonials.html";
+                        case loadedModels['TikTokModel']:
+                            window.open("https://www.tiktok.com/@jessesound", "_blank");
+                            return;
+                        case loadedModels['BackModel']:
+                            window.location.href = "index.html";
                             return;
                         default:
-                            // Handle the default case if needed (optional)
+                          
                             break;
                     }
                     

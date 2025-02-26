@@ -261,7 +261,7 @@ function animate() {
         cube.rotation.x += 0.001;
         cube.rotation.y += 0.001;
         
-        if (cube.position.y < -20) {
+        if (cube.position.y < -40) {
             cube.position.y = 20;
             cube.position.x = Math.random() * 40 - 20;
             cube.position.z = Math.random() * (-5 + 30) - 30; // Keep cube in front of the camera

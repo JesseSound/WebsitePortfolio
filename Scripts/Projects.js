@@ -311,23 +311,6 @@ function onWindowResize() {
     
 }
 
-// document.addEventListener('wheel', function (event) {
-//     event.preventDefault(); // Prevent default scrolling behavior for the camera
-
-//     if (event.deltaY > 0) {
-//         if (camera.position.y - 0.55 >= -15) { // Change -4 to -10 or any other value
-//             camera.position.y -= 0.55;
-//         } else {
-//             camera.position.y = -15; // Adjust the lower limit as needed
-//         }
-//     } else if (event.deltaY < 0) {
-//         if (camera.position.y + 0.5 <= 5) { // Upper limit remains the same
-//             camera.position.y += 0.5;
-//         } else {
-//             camera.position.y = 5;
-//         }
-//     }
-// }, { passive: false });
 
 
 // Start the animation loop

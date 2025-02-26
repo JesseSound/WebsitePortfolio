@@ -334,7 +334,7 @@ function onMouseClick(event) {
                             window.location.href = "Projects.html";
                             return;
                         default:
-                            // Handle the default case if needed (optional)
+                            
                             break;
                     }
                     

@@ -2,7 +2,9 @@
 
 // Setup scene
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+const camera = new THREE.OrthographicCamera(
+    window.innerWidth / -2, window.innerWidth / 2, window.innerHeight / 2, window.innerHeight / -2, 1, 1000
+);
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
@@ -146,7 +148,7 @@ function animate() {
 
     // Move bullets
     for (let bullet of bullets) {
-        bullet.position.z -= 0.5;
+        bullet.position.y += 0.5;
     }
 
     cubes.forEach(cube => {

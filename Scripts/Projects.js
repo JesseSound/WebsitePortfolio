@@ -20,6 +20,58 @@ const backgroundTexture = textureLoader.load('textures/textBackground.png');
 
 
 
+const planes =[];
+
+const textureLoader = new THREE.TextureLoader();
+const backgroundTexture = textureLoader.load('textures/textBackground.png');
+
+
+// Create a plane with the transparent image texture
+const planeGeometry = new THREE.PlaneGeometry(10, 6); // Adjust size as needed
+const planeMaterial = new THREE.MeshBasicMaterial({
+  map: backgroundTexture,
+  transparent: true, // Ensures transparency is respected
+  opacity: 0.5, // You can adjust the opacity
+});
+const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+plane.position.set(0, 16, -5); // Position it behind the text
+plane.scale.x =window.innerWidth;
+planes.push(plane);
+
+
+
+const myFaceTexture = textureLoader.load('textures/myFace.png');
+const faceGeometry = new THREE.PlaneGeometry(10, 6); // Adjust size as needed
+const myFaceMaterial = new THREE.MeshBasicMaterial({
+  map: myFaceTexture,
+  transparent: true, // Ensures transparency is respected
+  opacity: 0.8, // You can adjust the opacity
+});
+const facePlane = new THREE.Mesh(faceGeometry, myFaceMaterial);
+facePlane.position.set(1,0,-5);
+planes.push(facePlane);
+
+
+
+const bassTexture = textureLoader.load("textures/bass.jpg");
+const bassGeometry = new THREE.PlaneGeometry(10, 6); // Adjust size as needed
+const bassMaterial = new THREE.MeshBasicMaterial({
+  map:bassTexture,
+  transparent: true, // Ensures transparency is respected
+  opacity: 0.8, // You can adjust the opacity
+});
+const bassPlane = new THREE.Mesh(bassGeometry, bassMaterial);
+bassPlane.position.set(-3,0,-5);
+bassPlane.scale.set(.5, 1, 1);
+planes.push(bassPlane);
+
+
+
+
+
+// for(let i = 0; i <= planes.length - 1; i++){
+// scene.add(planes[i]);
+// }
 
 
 

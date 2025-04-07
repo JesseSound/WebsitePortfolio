@@ -156,7 +156,7 @@ let isRotating = false;  // Flag to check if the rotation animation is running
 function animate() {
     requestAnimationFrame(animate);
 // Initial layout adjustment
-updateLayout();
+//updateLayout();
     // Add a new cube periodically to maintain a constant stream
     if (Math.random() < 0.5 && cubes.length < 1500) {
         createCube();

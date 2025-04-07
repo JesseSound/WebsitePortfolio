@@ -27,7 +27,7 @@ loader.load('Models/Spaceship.glb', function (gltf) {
     spaceShip = gltf.scene; // Get the 3D model from the loader
     scene.add(spaceShip);
     spaceShip.position.z = 0;
-    spaceShip.rotation.x = -90;
+    spaceShip.rotation.x = 45;
     spaceShip.scale.set(1.0,1.05,1.0);
     // Modify material to wireframe for the spaceship model
     spaceShip.traverse((child) => {
@@ -132,22 +132,21 @@ function animate() {
 
     if (spaceShip) {
         // Move spaceship (corrected Y-axis direction)
-        if (keys['arrowleft'] || keys['a']) spaceShip.position.x -= 0.1;  // Left
-        if (keys['arrowright'] || keys['d']) spaceShip.position.x += 0.1; // Right
-        if (keys['arrowup'] || keys['w']) spaceShip.position.y -= 0.1;   // Up (negative Y is up)
-        if (keys['arrowdown'] || keys['s']) spaceShip.position.y += 0.1;   // Down (positive Y is down)
+        if (keys['arrowleft'] || keys['a']) spaceShip.position.x += 0.1;  // Left
+        if (keys['arrowright'] || keys['d']) spaceShip.position.x -= 0.1; // Right
+        if (keys['arrowup'] || keys['w']) spaceShip.position.y += 0.1;   // Up 
+        if (keys['arrowdown'] || keys['s']) spaceShip.position.y -= 0.1;   // Down (positive Y is down)
     
         // Optional Z-axis movement (forward/backward)
-        if (keys['q']) spaceShip.position.z += 0.1; // Move forward (toward the camera)
-        if (keys['e']) spaceShip.position.z -= 0.1; // Move backward (away from the camera)
-        
+        if (keys['q']) spaceShip.position.z -= 0.1; // Move forward
+        if (keys['e']) spaceShip.position.z += 0.1; // Move backward 
     }
     
     
 
     // Move bullets
     for (let bullet of bullets) {
-        bullet.position.y += 0.5;
+        bullet.position.z -= 0.5;
     }
 
     cubes.forEach(cube => {

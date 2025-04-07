@@ -80,20 +80,7 @@ textOverlay.style.top = '20px';
 textOverlay.style.left = '20px';
 textOverlay.style.color = 'white';
 textOverlay.style.fontSize = '24px';
-textOverlay.innerHTML = `
-    "Jesse McCormack has been an exceptional student in my video game programming classes. He has continuously exceeded expectations with assignment submissions, and selflessly tutored countless students expecting nothing in return other than the satisfaction of lending a helping hand.<br><br>
-
-    Jesse immediately assumed the role of a mentor in semester 1. His self-taught programming background accelerated his ability to master course concepts, resulting in him helping many of his peers. He assumed a technical leadership role within his group, and would never hesitate to help people outside of his group.<br><br>
-
-    In semester 2, Jesse’s programming abilities became even more evident to me after he was introduced to the subject of graphics programming. My course was centred around signed distance fields & raymarching. Jesse took that one step further by using his background in music to write a shader that visualized audio. My final assignment required students to implement Phong lighting in a raymarched pipeline. Jesse added shadow mapping and ambient occlusion to his assignment without any formal instruction! Additionally, he asked me for permission to make a raycasting tech demo in another programming course instead of doing the original assignment, which I enthusiastically agreed to.<br><br>
-
-    In semester 3, I taught a course on rasterization in which students built a software renderer. Jesse was very curious about the inner workings of my renderer which I kept hidden in order to minimize complexity. After learning that the renderer uses the GPU to present to the screen, Jesse ported his previous work from ShaderToy to the renderer and made a new shader which rendered an ocean via raymarching.<br><br>
-
-    Overall, Jesse has been an incredibly creative and hard-working student. He’s always looking to push boundaries between implementing unique solutions to problems and persevering when the going gets tough. I think he has a very bright future ahead of him as a game developer and would highly recommend him for any programming role.<br><br>
-
-    Sincerely,<br>
-    Connor Smiley, Professor of Game Design at Georgian College."
-`;
+textOverlay.innerHTML = '';
 document.body.appendChild(textOverlay);
 
 

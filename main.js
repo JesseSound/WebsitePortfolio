@@ -111,7 +111,7 @@ loadModel('SpaceShipModel', 'Models/Spaceship.glb', [5, -2, 0], [1, 0.5, 1], [Ma
 
 
 
-applyMaterialToModel(loadedModels['SpaceShipModel']);
+
 
 
 // Create a PointLight
@@ -454,5 +454,5 @@ window.addEventListener('resize', updateLayout);
 if (models.length === 6) {
     updateLayout();
 
-   
+    applyMaterialToModel(loadedModels['SpaceShipModel']);
 }

@@ -6,9 +6,9 @@ const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHei
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
-camera.position.z = 5;
-camera.position.y = 0;
+camera.position.set (0,0,5);
 
+camera.lookAt(0, 0, 0);
 // Add light
 const light = new THREE.DirectionalLight(0xffffff, 1);
 light.position.set(0, 5, 10);

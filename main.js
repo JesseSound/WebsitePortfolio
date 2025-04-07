@@ -51,6 +51,7 @@ function updateLayout() {
         [5, 2, 0],    // RepoModel
         [-5, 2, 0],   // ProjectsModel
         [-5, -2, 0]   // SocialsModel
+        [5, -2, 0] //spaceship
     ];
 
     // Adjust Y values based on screen size
@@ -74,7 +75,7 @@ loadModel('TestimonialsModel', 'Models/Testimonials.glb', [0, -2, 0], [1, 0.5, 1
 loadModel('RepoModel', 'Models/repos.glb', [5, 2, 0], [1, 0.5, 1], [Math.PI / 2, 0, 0]);
 loadModel('ProjectsModel', 'Models/Projects.glb', [-5, 2, 0], [1, 0.5, 1], [Math.PI / 2, 0, 0]);
 loadModel('SocialsModel', 'Models/Socials.glb', [-5, -2, 0], [1, 0.5, 1], [Math.PI / 2, 0, 0]);
-loadModel('SpaceShipModel', 'Models/Spaceship.glb', [-5, -2, 0], [1, 0.5, 1], [Math.PI / 2, 0, 0]);
+loadModel('SpaceShipModel', 'Models/Spaceship.glb', [5, -2, 0], [1, 0.5, 1], [Math.PI / 2, 0, 0]);
 
 
 

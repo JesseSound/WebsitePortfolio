@@ -336,7 +336,7 @@ function onMouseClick(event) {
                             window.location.href = "Projects.html";
                             return;
                             case loadedModels['SpaceShipModel']:
-                            window.location.href = "Projects.html";
+                            window.location.href = "Game.html";
                             return;
                         default:
                             

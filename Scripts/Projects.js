@@ -280,7 +280,7 @@ function onWindowResize() {
     
 }
 
-
+//thumbnail stuff
 document.querySelectorAll('.thumbnail-gallery img').forEach(img => {
     img.addEventListener('click', () => {
         const lightbox = document.getElementById('lightbox-overlay');

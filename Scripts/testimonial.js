@@ -1,6 +1,6 @@
 // Initial scene setup
 let scene = new THREE.Scene();
-let camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000);
+let camera = new THREE.PerspectiveCamera( 1000, window.innerWidth / window.innerHeight, 0.1, 1000);
 let renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
@@ -108,24 +108,16 @@ textOverlay.style.maxHeight = '80%';  // Limit the height, adjust as needed
 document.body.appendChild(textOverlay);
 
 
-// // Handle mouse wheel scroll to scroll the text overlay
-// document.addEventListener('wheel', function (event) {
-//     //event.preventDefault(); // Prevent default scrolling behavior for text overlay
-
-//     // Scroll the text overlay
-//     if (event.deltaY > 0) {
-//         textOverlay.scrollTop += 20; // Scroll down
-//     } else {
-//         textOverlay.scrollTop -= 20; // Scroll up
-//     }
-// }, { passive: false });
-
+// Handle mouse wheel scroll to scroll the text overlay
 document.addEventListener('wheel', function (event) {
-    // Scroll the text overlay
-    textOverlay.scrollTop += event.deltaY;
+    //event.preventDefault(); // Prevent default scrolling behavior for text overlay
 
-    // Move the camera vertically (Y-axis)
-    camera.position.y += event.deltaY * -0.01; // Adjust speed as needed (negative to make scroll intuitive)
+    // Scroll the text overlay
+    if (event.deltaY > 0) {
+        textOverlay.scrollTop += 20; // Scroll down
+    } else {
+        textOverlay.scrollTop -= 20; // Scroll up
+    }
 }, { passive: false });
 
 

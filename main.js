@@ -94,11 +94,9 @@ function applyMaterialToModel(model) {
     });
 }
 
-// After loading the model
-loadModel('SpaceShipModel', 'path/to/spaceShipModel.gltf', [0, 0, 0], [1, 1, 1], [0, 0, 0]);
 
-// Apply material after the model is loaded
-applyMaterialToModel(loadedModels['SpaceShipModel']);
+
+
 
 // Load models and apply layout based on screen size
 loadModel('AboutMeModel', 'Models/AboutMe.glb', [0, 2, 0], [1, 0.5, 1], [Math.PI / 2, 0, 0]);

@@ -353,21 +353,21 @@ let isScrolling = false;
 let scrollSpeed = 1; // Adjust scroll speed here
 
 function smoothScroll(deltaY) {
-    // Reverse the direction for mobile: scrolling down moves the camera up, scrolling up moves the camera down
-    let movement = deltaY < 0 ? scrollSpeed : -scrollSpeed;
+    // Reverse the direction: scrolling down (positive deltaY) moves camera up (negative Y)
+    let movement = -deltaY * scrollSpeed * 0.05; // Tune 0.05 as needed
 
-    // Apply smooth camera movement
     camera.position.y += movement;
 
-    // Ensure the camera stays within bounds
-    console.log(camera.position.y);  // Log to see what the camera's position is
-camera.position.y = Math.max(Math.min(camera.position.y, 15), -18);
+    // Clamp camera position
+    camera.position.y = Math.max(Math.min(camera.position.y, 15), -18);
 
+    console.log(camera.position.y);  // Debug
 }
 
-let lastTouchY = 0;  // For mobile touch events
 
-// Handle mouse wheel and touchmove events
+let lastTouchY = 0;
+
+
 function onScroll(event) {
     event.preventDefault(); // Prevent default scrolling behavior
 
@@ -375,9 +375,10 @@ function onScroll(event) {
     if (event.type === "wheel") {
         deltaY = event.deltaY;
     } else if (event.type === "touchmove") {
-        if (event.touches.length < 2) { // Ignore pinch-zoom
-            deltaY = event.touches[0].clientY - lastTouchY;
-            lastTouchY = event.touches[0].clientY;
+        if (event.touches.length < 2) {
+            const currentY = event.touches[0].clientY;
+            deltaY = lastTouchY - currentY; // Inverted for natural scrolling
+            lastTouchY = currentY;
         }
     }
 
@@ -386,14 +387,16 @@ function onScroll(event) {
         smoothScroll(deltaY);
         setTimeout(() => {
             isScrolling = false;
-        }, 40); // This timeout controls how fast the smooth scroll updates
+        }, 40);
     }
 }
+
 function onTouchStart(event) {
-    if (event.touches.length < 2) { // Only track the first touch
+    if (event.touches.length < 2) {
         lastTouchY = event.touches[0].clientY;
     }
 }
+
 // Add event listeners for both desktop and mobile scroll
 document.addEventListener("wheel", onScroll);
  document.addEventListener("touchmove", onScroll);

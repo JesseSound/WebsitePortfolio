@@ -126,11 +126,14 @@ function updateOpacityBasedOnZ(object) {
 function animate() {
     requestAnimationFrame(animate);
 
-    // Move spaceship
-    if (keys['arrowleft'] || keys['a']) spaceShip.position.x -= 0.1;
-    if (keys['arrowright'] || keys['d']) spaceShip.position.x += 0.1;
-    if (keys['arrowup'] || keys['w']) spaceShip.position.y += 0.1;
-    if (keys['arrowdown'] || keys['s']) spaceShip.position.y -= 0.1;
+    if (spaceShip) {
+        // Move spaceship
+        if (keys['arrowleft'] || keys['a']) spaceShip.position.x -= 0.1;
+        if (keys['arrowright'] || keys['d']) spaceShip.position.x += 0.1;
+        if (keys['arrowup'] || keys['w']) spaceShip.position.y += 0.1;
+        if (keys['arrowdown'] || keys['s']) spaceShip.position.y -= 0.1;
+    }
+    
 
     // Move bullets
     for (let bullet of bullets) {
@@ -178,6 +181,8 @@ function onWindowResize() {
         previousWidth = newWidth;
         previousHeight = newHeight;
     }
+    camera.updateProjectionMatrix();
+
 }
 
 window.addEventListener("resize", onWindowResize);

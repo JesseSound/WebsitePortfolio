@@ -24,14 +24,14 @@ function loadModel(name, path, position, scale, rotation) {
     loader.load(path, (gltf) => {
         // If this is the spaceship model, apply a wireframe material
 
-
-        const model = gltf.scene;
-        model.name = name;
-        model.scale.set(...scale);
-        model.rotation.set(...rotation);
-        model.position.set(...position);
+        const loadedModel = gltf.scene;
+        loadedModel.name = name;
+        loadedModel.scale.set(...scale);
+        loadedModel.rotation.set(...rotation);
+        loadedModel.position.set(...position);
+        
         if (name === 'SpaceShipModel') {
-            model.traverse((child) => {
+            loadedModel.traverse((child) => {
                 if (child.isMesh) {
                     child.material = new THREE.MeshBasicMaterial({
                         color: 0xffffff,
@@ -40,15 +40,17 @@ function loadModel(name, path, position, scale, rotation) {
                 }
             });
         }
-        scene.add(model);
-
-        models.push(model);
-        loadedModels[name] = model;
-        // Store the original position of the model
-        originalPositions.set(model, {
-            position: model.position.clone(),
-            scale: model.scale.clone()
+        
+        scene.add(loadedModel);
+        
+        models.push(loadedModel);
+        loadedModels[name] = loadedModel;
+        
+        originalPositions.set(loadedModel, {
+            position: loadedModel.position.clone(),
+            scale: loadedModel.scale.clone()
         });
+        
     }, undefined, (error) => {
         console.error(error);
     });
@@ -81,6 +83,22 @@ function updateLayout() {
         }
     }
 }
+function applyMaterialToModel(model) {
+    model.traverse((child) => {
+        if (child.isMesh) {
+            child.material = new THREE.MeshBasicMaterial({
+                color: 0xffffff,
+                wireframe: true
+            });
+        }
+    });
+}
+
+// After loading the model
+loadModel('SpaceShipModel', 'path/to/spaceShipModel.gltf', [0, 0, 0], [1, 1, 1], [0, 0, 0]);
+
+// Apply material after the model is loaded
+applyMaterialToModel(loadedModels['SpaceShipModel']);
 
 // Load models and apply layout based on screen size
 loadModel('AboutMeModel', 'Models/AboutMe.glb', [0, 2, 0], [1, 0.5, 1], [Math.PI / 2, 0, 0]);
@@ -95,7 +113,7 @@ loadModel('SpaceShipModel', 'Models/Spaceship.glb', [5, -2, 0], [1, 0.5, 1], [Ma
 
 
 
-
+applyMaterialToModel(loadedModels['SpaceShipModel']);
 
 
 // Create a PointLight

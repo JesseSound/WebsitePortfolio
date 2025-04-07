@@ -102,7 +102,7 @@ textOverlay.style.top = '20px';
 textOverlay.style.left = '20px';
 textOverlay.style.color = 'white';
 textOverlay.style.fontSize = '24px';
-textOverlay.innerHTML = "I'm a graduate of Centennial College's Music Industry and Performance Program and soon to graduate from Georgian College's Game Design and Simulation Program. With 8 years of experience as a professional musician and 4 years as a game programming teacher at Code Ninjas, I have a passion for both creativity and education, especially when inspiring the next generation of developers. I'm also an aspiring comedian and a dedicated graphics programmer, blending my love for entertainment and technical skill into every project I take on.";
+textOverlay.innerHTML = "";
 document.body.appendChild(textOverlay);
 
 

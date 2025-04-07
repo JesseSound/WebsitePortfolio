@@ -425,7 +425,7 @@ window.addEventListener('resize', updateLayout);
 if (models.length === 6) {
     updateLayout();
 
-    spaceship.traverse((child) => {
+    SpaceShipModel.traverse((child) => {
         if (child.isMesh) {
             child.material = new THREE.MeshBasicMaterial({
                 color: 0x00ffff, // or any color you want

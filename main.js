@@ -30,16 +30,16 @@ function loadModel(name, path, position, scale, rotation) {
         loadedModel.rotation.set(...rotation);
         loadedModel.position.set(...position);
         
-        if (name === 'SpaceShipModel') {
-            loadedModel.traverse((child) => {
-                if (child.isMesh) {
-                    child.material = new THREE.MeshBasicMaterial({
-                        color: 0xffffff,
-                        wireframe: true
-                    });
-                }
-            });
-        }
+        // if (name === 'SpaceShipModel') {
+        //     loadedModel.traverse((child) => {
+        //         if (child.isMesh) {
+        //             child.material = new THREE.MeshBasicMaterial({
+        //                 color: 0xffffff,
+        //                 wireframe: true
+        //             });
+        //         }
+        //     });
+        // }
         
         scene.add(loadedModel);
         
@@ -455,4 +455,5 @@ if (models.length === 6) {
     updateLayout();
 
     applyMaterialToModel(loadedModels['SpaceShipModel']);
+    updateLayout();
 }

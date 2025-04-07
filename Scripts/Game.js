@@ -12,10 +12,33 @@ const light = new THREE.DirectionalLight(0xffffff, 1);
 light.position.set(0, 5, 10);
 scene.add(light);
 
-// Add spaceship
-const spaceShip = new SpaceShipModel(); // ← using your model
-scene.add(spaceShip);
-spaceShip.position.z = -10;
+let spaceShip = null;
+// Create a loader for GLTF models
+const loader = new THREE.GLTFLoader();
+let loadedModels = {};
+// Load spaceship model
+loader.load('Models/Spaceship.glb', function (gltf) {
+    spaceShip = gltf.scene; // Get the 3D model from the loader
+    scene.add(spaceShip);
+    spaceShip.position.z = -10;
+    
+    // Modify material to wireframe for the spaceship model
+    spaceShip.traverse((child) => {
+        if (child.isMesh) {
+            child.material = new THREE.MeshBasicMaterial({
+                color: 0xffffff,
+                wireframe: true
+            });
+        }
+    });
+}, undefined, function (error) {
+    console.error('Error loading spaceship model:', error);
+});
+
+
+
+
+
 
 // Movement logic
 const keys = {};
@@ -25,12 +48,14 @@ document.addEventListener('keyup', (e) => keys[e.key.toLowerCase()] = false);
 // Projectiles
 const bullets = [];
 function shoot() {
-    const geometry = new THREE.BoxGeometry(0.2, 0.2, 0.2);
-    const material = new THREE.MeshStandardMaterial({ color: 0x00ffff });
-    const bullet = new THREE.Mesh(geometry, material);
-    bullet.position.copy(spaceShip.position);
-    bullets.push(bullet);
-    scene.add(bullet);
+    if (spaceShip) { // Ensure the spaceship model is loaded before shooting
+        const geometry = new THREE.BoxGeometry(0.2, 0.2, 0.2);
+        const material = new THREE.MeshStandardMaterial({ color: 0x00ffff });
+        const bullet = new THREE.Mesh(geometry, material);
+        bullet.position.copy(spaceShip.position);
+        bullets.push(bullet);
+        scene.add(bullet);
+    }
 }
 
 document.addEventListener('keydown', (e) => {

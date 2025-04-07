@@ -12,9 +12,18 @@
     <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/renderers/CSS2DRenderer.js"></script>
 
     <style>
-        body { margin: 0; background: black; color: white; font-family: monospace; overflow: hidden; }
+       body { margin: 0; background: black; color: white; font-family: monospace; overflow: auto; }
         canvas { display: block; width: 100vw; height: 100vh; }
-        pre { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; font-size: 8px; line-height: 8px; white-space: pre-wrap; overflow: hidden; }
+        pre { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; font-size: 8px; line-height: 8px; white-space: pre-wrap; overflow: auto; }
+
+        a {
+            color: cyan; /* Change hyperlink color to cyan */
+            text-decoration: none; /* Optional: Removes underline */
+            }
+
+        a:hover {
+                text-decoration: underline; /* Optional: Adds underline when hovered */
+            }
     </style>
 </head>
 <body>

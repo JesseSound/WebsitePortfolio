@@ -24,22 +24,41 @@ const planeMaterial = new THREE.MeshBasicMaterial({
   opacity: 0.5, // You can adjust the opacity
 });
 const plane = new THREE.Mesh(planeGeometry, planeMaterial);
-plane.position.set(0, 0, -5); // Position it behind the text
+plane.position.set(0, 16, -5); // Position it behind the text
 plane.scale.x =window.innerWidth;
 planes.push(plane);
 
 
 
+const myFaceTexture = textureLoader.load('textures/myFace.png');
+const faceGeometry = new THREE.PlaneGeometry(10, 6); // Adjust size as needed
+const myFaceMaterial = new THREE.MeshBasicMaterial({
+  map: myFaceTexture,
+  transparent: true, // Ensures transparency is respected
+  opacity: 0.8, // You can adjust the opacity
+});
+const facePlane = new THREE.Mesh(faceGeometry, myFaceMaterial);
+facePlane.position.set(1,0,-5);
+planes.push(facePlane);
+
+
+
+const bassTexture = textureLoader.load("textures/bass.jpg");
+const bassGeometry = new THREE.PlaneGeometry(10, 6); // Adjust size as needed
+const bassMaterial = new THREE.MeshBasicMaterial({
+  map:bassTexture,
+  transparent: true, // Ensures transparency is respected
+  opacity: 0.8, // You can adjust the opacity
+});
+const bassPlane = new THREE.Mesh(bassGeometry, bassMaterial);
+bassPlane.position.set(-3,0,-5);
+bassPlane.scale.set(.5, 1, 1);
+planes.push(bassPlane);
 
 
 
 
 
-
-
-for(let i = 0; i <= planes.length - 1; i++){
-scene.add(planes[i]);
-}
 
 
 let models =[];
@@ -75,13 +94,37 @@ function loadModel(name, path, position, scale, rotation) {
 
 // Create a div element for the text overlay
 let textOverlay = document.createElement('div');
-textOverlay.style.position = 'absolute';
-textOverlay.style.top = '20px';
-textOverlay.style.left = '20px';
+textOverlay.style.position = 'absolute'; // Change to absolute to position relative to the document
+textOverlay.style.top = '50%';  // Start at the center vertically (or any value you want)
+textOverlay.style.left = '20px'; // Position on the left side
+textOverlay.style.transform = 'translateY(-0%)'; // Center vertically
 textOverlay.style.color = 'white';
 textOverlay.style.fontSize = '24px';
-textOverlay.innerHTML = '';
+textOverlay.style.overflowY = 'auto';  // Allow scrolling
+textOverlay.style.maxHeight = '80%';  // Limit the height, adjust as needed
+
 document.body.appendChild(textOverlay);
+
+
+// // Handle mouse wheel scroll to scroll the text overlay
+// document.addEventListener('wheel', function (event) {
+//     //event.preventDefault(); // Prevent default scrolling behavior for text overlay
+
+//     // Scroll the text overlay
+//     if (event.deltaY > 0) {
+//         textOverlay.scrollTop += 20; // Scroll down
+//     } else {
+//         textOverlay.scrollTop -= 20; // Scroll up
+//     }
+// }, { passive: false });
+
+document.addEventListener('wheel', function (event) {
+    // Scroll the text overlay
+    textOverlay.scrollTop += event.deltaY;
+
+    // Move the camera vertically (Y-axis)
+    camera.position.y += event.deltaY * -0.01; // Adjust speed as needed (negative to make scroll intuitive)
+}, { passive: false });
 
 
 
@@ -113,7 +156,7 @@ function updateLayout() {
 }
 
 // Load models and apply layout based on screen size
-loadModel('BackModel', 'Models/Back.glb', [0, camera.position.y - 4, 0], [0.5, 0.5, 0.5], [Math.PI / 2, 0, 0]);
+//loadModel('BackModel', 'Models/Back.glb', [0, camera.position.y - 4, 0], [0.5, 0.5, 0.5], [Math.PI / 2, 0, 0]);
 
 
 // Update layout when screen size changes
@@ -197,6 +240,7 @@ let clock = new THREE.Clock();
 let isRotating = false;  // Flag to check if the rotation animation is running
 // Animation loop
 // Animation loop
+// Animation loop
 function animate() {
     requestAnimationFrame(animate);
 
@@ -207,23 +251,24 @@ function animate() {
 
     let delta = clock.getDelta();
 
-    for(let i = 0; i <= models.length -1; i++) {
+    // Rotate models in the 3D space if necessary
+    for(let i = 0; i <= models.length - 1; i++) {
         if(!isRotating) {
             models[i].rotation.z = Math.sin(clock.getElapsedTime()) * 0.05;
             models[i].rotation.y = Math.cos(clock.getElapsedTime()) * 0.05;
         }
     }
 
-    // Update the plane's position to follow the camera
-    plane.position.set(camera.position.x, camera.position.y + 5, camera.position.z - 5);
-    
+    // Update the plane's position to follow the camera (3D)
+    plane.position.set(camera.position.x, camera.position.y + 3, camera.position.z - 5);
+
     // Ensure cubes reset within the correct range (Z = -35 to -5)
     cubes.forEach(cube => {
         cube.position.y -= 0.03;
         cube.rotation.x += 0.001;
         cube.rotation.y += 0.001;
         
-        if (cube.position.y < -20) {
+        if (cube.position.y < -40) {
             cube.position.y = 20;
             cube.position.x = Math.random() * 40 - 20;
             cube.position.z = Math.random() * (-5 + 30) - 30; // Keep cube in front of the camera
@@ -232,10 +277,13 @@ function animate() {
 
         updateOpacityBasedOnZ(cube);
     });
-
-    renderer2D.render(scene, camera);  // CSS2D overlay rendering
+    
+    // Render the 3D scene
     renderer.render(scene, camera);
+    // Render the 2D UI (text)
+    renderer2D.render(scene, camera);
 }
+
 
 
 // Handle window resize
@@ -256,32 +304,19 @@ function onWindowResize() {
         }
 
         
-
+          // Adjust the plane size to scale with 1/3rd of the screen height
+          const planeHeight = newHeight / 3; // 1/3rd of screen height
+         
+          
+          plane.scale.y = planeHeight ; // Divide by initial scale of plane (10 and 6 from PlaneGeometry)
+          
+        
         previousWidth = newWidth;
         previousHeight = newHeight;
     }
-}
 
-document.addEventListener('wheel', function (event) {
-    event.preventDefault(); // Prevent default scrolling behavior
-
-    if (event.deltaY > 0) {
-        console.log('Mouse wheel scrolled down');
-        if (camera.position.y - 0.55 >= -15) { // Change -4 to -10 or any other value
-            camera.position.y -= 0.55;
-        } else {
-            camera.position.y = -15; // Adjust the lower limit as needed
-        }
-    } else if (event.deltaY < 0) {
-        console.log('Mouse wheel scrolled up');
-        if (camera.position.y + 0.5 <= 5) { // Upper limit remains the same
-            camera.position.y += 0.5;
-        } else {
-            camera.position.y = 5;
-        }
-    }
     
-}, { passive: false });
+}
 
 
 
@@ -290,150 +325,14 @@ animate();
 
 // Add resize event listener
 window.addEventListener("resize", onWindowResize);
-// Raycaster and mouse vector for click detection
-const raycaster = new THREE.Raycaster();
-const mouse = new THREE.Vector2();
 
 
 
 
 
-let previousClickedModel = null;
-
-function onMouseClick(event) {
-    if (isRotating) return;  
-
-    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-
-    raycaster.setFromCamera(mouse, camera);
-
-    // Get all loaded models
-    const models = Object.values(loadedModels);
-
-    const intersects = raycaster.intersectObjects(models, true); 
-
-    if (intersects.length > 0) {
-        let clickedMesh = intersects[0].object;
-
-        while (clickedMesh.parent && clickedMesh.parent !== scene) {
-            clickedMesh = clickedMesh.parent;
-        }
-
-
-      
-
-        if (previousClickedModel !== clickedMesh) {
-            if (previousClickedModel) {
-                let prevPos = originalPositions.get(previousClickedModel);
-                if (prevPos) {
-                    previousClickedModel.position.copy(prevPos.position);
-                    previousClickedModel.scale.set(1, 0.5, 1);
-                }
-            }
-
-            if (!originalPositions.has(clickedMesh)) {
-                originalPositions.set(clickedMesh, {
-                    position: clickedMesh.position.clone(),
-                    scale: clickedMesh.scale.clone()
-                });
-            }
-
-            previousClickedModel = clickedMesh;
-            //camera.position.y = clickedMesh.position.y;
-
-            isRotating = true;
-
-            let startRotation = clickedMesh.rotation.z;
-            let targetRotation = startRotation + Math.PI * 2;
-            let duration = 500;
-            let startTime = performance.now();
-
-            function animateRotation(time) {
-                let elapsed = time - startTime;
-                let progress = Math.min(elapsed / duration, 1);
-
-                clickedMesh.rotation.z = startRotation + progress * (targetRotation - startRotation);
-
-                if (progress < 1) {
-                    requestAnimationFrame(animateRotation);
-                } else {
-                    isRotating = false;
-                    
-                            
-                            window.location.href = "index.html";
-                            
-                    }
-                    
-                
-            }
-
-            animateRotation(performance.now());
-        }
-    }
-}
-
-
-
-// Mobile smooth scrolling and reverse behavior
-let isScrolling = false;
-let scrollSpeed = 1; // Adjust scroll speed here
-
-function smoothScroll(deltaY) {
-    // Reverse the direction for mobile: scrolling down moves the camera up, scrolling up moves the camera down
-    let movement = deltaY < 0 ? scrollSpeed : -scrollSpeed;
-
-    // Apply smooth camera movement
-    camera.position.y += movement;
-
-    // Ensure the camera stays within bounds
-    console.log(camera.position.y);  // Log to see what the camera's position is
-camera.position.y = Math.max(Math.min(camera.position.y, 15), -18);
-
-}
-
-let lastTouchY = 0;  // For mobile touch events
-
-// Handle mouse wheel and touchmove events
-function onScroll(event) {
-    event.preventDefault(); // Prevent default scrolling behavior
-
-    let deltaY = 0;
-    if (event.type === "wheel") {
-        deltaY = event.deltaY;
-    } else if (event.type === "touchmove") {
-        if (event.touches.length < 2) { // Ignore pinch-zoom
-            deltaY = event.touches[0].clientY - lastTouchY;
-            lastTouchY = event.touches[0].clientY;
-        }
-    }
-
-    if (!isScrolling) {
-        isScrolling = true;
-        smoothScroll(deltaY);
-        setTimeout(() => {
-            isScrolling = false;
-        }, 40); // This timeout controls how fast the smooth scroll updates
-    }
-}
-function onTouchStart(event) {
-    if (event.touches.length < 2) { // Only track the first touch
-        lastTouchY = event.touches[0].clientY;
-    }
-}
-// Add event listeners for both desktop and mobile scroll
-document.addEventListener("wheel", onScroll);
- document.addEventListener("touchmove", onScroll);
 
 
 
 
-document.addEventListener('wheel', onScroll, { passive: false });
-
-document.addEventListener('touchmove', onScroll, { passive: false });
-document.addEventListener('touchstart', (e) => { lastTouchY = e.touches[0].clientY; }, { passive: false });
-// Add click event listener for both desktop and mobile
-document.addEventListener('click', onMouseClick);
-document.addEventListener('touchend', onMouseClick); // Support touch clicks
 
 

@@ -171,14 +171,7 @@ function onWindowResize() {
         camera.aspect = newWidth / newHeight;
         camera.updateProjectionMatrix();
 
-        // Adjust models and cubes positions based on new size
-        if (AboutMeModel) {a
-            AboutMeModel.position.set(0, 2, 0); // Ensure ABoutMeModel remains centered
-        }
-
-        if (TestimonialsModel) {
-            TestimonialsModel.position.set(0, -2, 0); // Ensure OtherModel remains centered
-        }
+    
 
         previousWidth = newWidth;
         previousHeight = newHeight;

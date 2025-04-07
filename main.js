@@ -50,7 +50,7 @@ function updateLayout() {
         [0, -2, 0],   // TestimonialsModel
         [5, 2, 0],    // RepoModel
         [-5, 2, 0],   // ProjectsModel
-        [-5, -2, 0]   // SocialsModel
+        [-5, -2, 0] ,  // SocialsModel
         [5, -2, 0] //spaceship
     ];
 

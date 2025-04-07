@@ -28,6 +28,7 @@ loader.load('Models/Spaceship.glb', function (gltf) {
     scene.add(spaceShip);
     spaceShip.position.z = 0;
     spaceShip.rotation.x = -90;
+    spaceShip.scale.set(1.0,1.05,1.0);
     // Modify material to wireframe for the spaceship model
     spaceShip.traverse((child) => {
         if (child.isMesh) {
@@ -139,7 +140,7 @@ function animate() {
         // Optional Z-axis movement (forward/backward)
         if (keys['q']) spaceShip.position.z += 0.1; // Move forward (toward the camera)
         if (keys['e']) spaceShip.position.z -= 0.1; // Move backward (away from the camera)
-        updateOpacityBasedOnZ(spaceShip);
+        
     }
     
     

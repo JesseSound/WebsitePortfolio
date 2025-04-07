@@ -135,7 +135,7 @@ function updateLayout() {
 }
 
 // Load models and apply layout based on screen size
-loadModel('BackModel', 'Models/Back.glb', [0, camera.position.y - 4, 0], [0.5, 0.5, 0.5], [Math.PI / 2, 0, 0]);
+//loadModel('BackModel', 'Models/Back.glb', [0, camera.position.y - 4, 0], [0.5, 0.5, 0.5], [Math.PI / 2, 0, 0]);
 
 
 // Update layout when screen size changes

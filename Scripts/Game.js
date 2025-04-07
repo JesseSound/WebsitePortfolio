@@ -12,6 +12,10 @@ const light = new THREE.DirectionalLight(0xffffff, 1);
 light.position.set(0, 5, 10);
 scene.add(light);
 
+let clock = new THREE.Clock();
+
+
+
 let spaceShip = null;
 // Create a loader for GLTF models
 const loader = new THREE.GLTFLoader();
@@ -62,6 +66,60 @@ document.addEventListener('keydown', (e) => {
     if (e.code === 'Space') shoot();
 });
 
+
+
+let cubes = [];
+
+// Track the previous window size
+let previousWidth = window.innerWidth;
+let previousHeight = window.innerHeight;
+
+// Create a cube
+function createCube() {
+    let geometry = new THREE.BoxGeometry();
+    let cubeMaterial = new THREE.MeshBasicMaterial({
+        color: 0xffffff,
+        wireframe: true,
+        transparent: true
+    });
+
+    let cube = new THREE.Mesh(geometry, cubeMaterial);
+    let rangeX = window.innerWidth / 2;
+    let rangeY = window.innerHeight / 2;
+
+    let minZ = -35;  // Furthest in front of the camera
+    let maxZ = 1;   // Closest in front of the camera
+    let zPosition = Math.random() * (maxZ - minZ) + minZ; // Ensure cubes spawn in front of the camera
+
+    cube.position.set(
+        Math.random() * rangeX - rangeX / 2,
+        Math.random() * rangeY - rangeY / 2,
+        zPosition
+    );
+    cube.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
+
+    scene.add(cube);
+    cubes.push(cube);
+}
+
+// Update opacity based on Z position
+function updateOpacityBasedOnZ(object) {
+    const minZ = -10;  // Define the minimum Z value
+    const maxZ = 10;   // Define the maximum Z value
+
+    let normalizedZ = (object.position.z - minZ) / (maxZ - minZ);
+    normalizedZ = THREE.MathUtils.clamp(normalizedZ, 0, 1);
+
+    object.material.transparent = true;
+    object.material.opacity = normalizedZ;
+    object.material.needsUpdate = true;
+}
+
+
+
+
+
+
 // Game loop
 function animate() {
     requestAnimationFrame(animate);
@@ -76,6 +134,28 @@ function animate() {
     for (let bullet of bullets) {
         bullet.position.y += 0.5;
     }
+
+    cubes.forEach(cube => {
+  
+        cube.position.y -= 0.03;
+        cube.rotation.x += 0.001;
+        cube.rotation.y += 0.001;
+        
+        if (cube.position.y < -20) {
+            cube.position.y = 20;
+            cube.position.x = Math.random() * 40 - 20;
+            cube.position.z = Math.random() * (-5 + 30) - 30; // Keep cube in front of the camera
+            cube.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
+        }
+    
+            updateOpacityBasedOnZ(cube);
+        });
+
+
+
+
+
+
 
     renderer.render(scene, camera);
 }

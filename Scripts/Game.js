@@ -127,12 +127,17 @@ function animate() {
     requestAnimationFrame(animate);
 
     if (spaceShip) {
-        // Move spaceship
-        if (keys['arrowleft'] || keys['a']) spaceShip.position.x -= 0.1;
-        if (keys['arrowright'] || keys['d']) spaceShip.position.x += 0.1;
-        if (keys['arrowup'] || keys['w']) spaceShip.position.y += 0.1;
-        if (keys['arrowdown'] || keys['s']) spaceShip.position.y -= 0.1;
+        // Move spaceship (corrected Y-axis direction)
+        if (keys['arrowleft'] || keys['a']) spaceShip.position.x -= 0.1;  // Left
+        if (keys['arrowright'] || keys['d']) spaceShip.position.x += 0.1; // Right
+        if (keys['arrowup'] || keys['w']) spaceShip.position.y -= 0.1;   // Up (negative Y is up)
+        if (keys['arrowdown'] || keys['s']) spaceShip.position.y += 0.1;   // Down (positive Y is down)
+    
+        // Optional Z-axis movement (forward/backward)
+        if (keys['q']) spaceShip.position.z += 0.1; // Move forward (toward the camera)
+        if (keys['e']) spaceShip.position.z -= 0.1; // Move backward (away from the camera)
     }
+    
     
 
     // Move bullets

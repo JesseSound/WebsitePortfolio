@@ -23,22 +23,23 @@ const loadedModels = {};
 function loadModel(name, path, position, scale, rotation) {
     loader.load(path, (gltf) => {
         // If this is the spaceship model, apply a wireframe material
-if (name === 'SpaceShipModel') {
-    model.traverse((child) => {
-        if (child.isMesh) {
-            child.material = new THREE.MeshBasicMaterial({
-                color: 0xffffff,
-                wireframe: true
-            });
-        }
-    });
-}
+
 
         const model = gltf.scene;
         model.name = name;
         model.scale.set(...scale);
         model.rotation.set(...rotation);
         model.position.set(...position);
+        if (name === 'SpaceShipModel') {
+            model.traverse((child) => {
+                if (child.isMesh) {
+                    child.material = new THREE.MeshBasicMaterial({
+                        color: 0xffffff,
+                        wireframe: true
+                    });
+                }
+            });
+        }
         scene.add(model);
 
         models.push(model);

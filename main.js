@@ -13,6 +13,7 @@ let TestimonialsModel;
 let RepoModel;
 let ProjectsModel;
 let SocialsModel;
+let SpaceShipModel;
 // Store original positions of models on load (not on click)
 const originalPositions = new Map();
 
@@ -73,7 +74,7 @@ loadModel('TestimonialsModel', 'Models/Testimonials.glb', [0, -2, 0], [1, 0.5, 1
 loadModel('RepoModel', 'Models/repos.glb', [5, 2, 0], [1, 0.5, 1], [Math.PI / 2, 0, 0]);
 loadModel('ProjectsModel', 'Models/Projects.glb', [-5, 2, 0], [1, 0.5, 1], [Math.PI / 2, 0, 0]);
 loadModel('SocialsModel', 'Models/Socials.glb', [-5, -2, 0], [1, 0.5, 1], [Math.PI / 2, 0, 0]);
-
+loadModel('SpaceShipModel', 'Models/Spaceship.glb', [-5, -2, 0], [1, 0.5, 1], [Math.PI / 2, 0, 0]);
 
 
 
@@ -331,6 +332,9 @@ function onMouseClick(event) {
                             window.location.href = "Socials.html";
                             return;
                         case loadedModels['ProjectsModel']:
+                            window.location.href = "Projects.html";
+                            return;
+                            case loadedModels['SpaceShipModel']:
                             window.location.href = "Projects.html";
                             return;
                         default:

@@ -2,7 +2,7 @@
 
 // Setup scene
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+const camera = new THREE.PerspectiveCamera(200, window.innerWidth/window.innerHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
@@ -21,7 +21,7 @@ loader.load('Models/Spaceship.glb', function (gltf) {
     spaceShip = gltf.scene; // Get the 3D model from the loader
     scene.add(spaceShip);
     spaceShip.position.z = -10;
-    
+    spaceShip.rotation.x = -90;
     // Modify material to wireframe for the spaceship model
     spaceShip.traverse((child) => {
         if (child.isMesh) {
@@ -74,9 +74,35 @@ function animate() {
 
     // Move bullets
     for (let bullet of bullets) {
-        bullet.position.z -= 0.5;
+        bullet.position.y += 0.5;
     }
 
     renderer.render(scene, camera);
 }
 animate();
+// Handle window resize
+function onWindowResize() {
+    const newWidth = window.innerWidth;
+    const newHeight = window.innerHeight;
+
+    // Only update if the window size has actually changed
+    if (newWidth !== previousWidth || newHeight !== previousHeight) {
+        renderer.setSize(newWidth, newHeight);
+        camera.aspect = newWidth / newHeight;
+        camera.updateProjectionMatrix();
+
+        // Adjust models and cubes positions based on new size
+        if (AboutMeModel) {a
+            AboutMeModel.position.set(0, 2, 0); // Ensure ABoutMeModel remains centered
+        }
+
+        if (TestimonialsModel) {
+            TestimonialsModel.position.set(0, -2, 0); // Ensure OtherModel remains centered
+        }
+
+        previousWidth = newWidth;
+        previousHeight = newHeight;
+    }
+}
+
+window.addEventListener("resize", onWindowResize);

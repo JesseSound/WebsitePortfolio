@@ -132,8 +132,8 @@ function animate() {
 
     if (spaceShip) {
         // Move spaceship (corrected Y-axis direction)
-        if (keys['arrowleft'] || keys['a']) spaceShip.position.x += 0.1;  // Left
-        if (keys['arrowright'] || keys['d']) spaceShip.position.x -= 0.1; // Right
+        if (keys['arrowleft'] || keys['a']) spaceShip.position.x -= 0.1;  // Left
+        if (keys['arrowright'] || keys['d']) spaceShip.position.x += 0.1; // Right
         if (keys['arrowup'] || keys['w']) spaceShip.position.y += 0.1;   // Up 
         if (keys['arrowdown'] || keys['s']) spaceShip.position.y -= 0.1;   // Down (positive Y is down)
     

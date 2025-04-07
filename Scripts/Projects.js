@@ -12,8 +12,6 @@ document.body.appendChild(renderer2D.domElement);
 
 
 
-const textureLoader = new THREE.TextureLoader();
-const backgroundTexture = textureLoader.load('textures/textBackground.png');
 
 
 

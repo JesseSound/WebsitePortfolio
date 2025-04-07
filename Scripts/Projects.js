@@ -277,8 +277,7 @@ function animate() {
 
         updateOpacityBasedOnZ(cube);
     });
-    camera.position.y = -scrollY * 0.01;
-    camera.lookAt(new THREE.Vector3(0, camera.position.y, 0)); // Keep looking forward
+    
     // Render the 3D scene
     renderer.render(scene, camera);
     // Render the 2D UI (text)

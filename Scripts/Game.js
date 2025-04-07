@@ -125,6 +125,9 @@ function updateOpacityBasedOnZ(object) {
 // Game loop
 function animate() {
     requestAnimationFrame(animate);
+    if (Math.random() < 0.5 && cubes.length < 1500) {
+        createCube();
+    }
 
     if (spaceShip) {
         // Move spaceship (corrected Y-axis direction)

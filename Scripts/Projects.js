@@ -281,7 +281,13 @@ function onWindowResize() {
 }
 
 
-
+document.querySelectorAll('.thumbnail-gallery img').forEach(img => {
+    img.addEventListener('click', () => {
+        const lightbox = document.getElementById('lightbox-overlay');
+        lightbox.style.display = 'flex';
+        lightbox.querySelector('img').src = img.src;
+    });
+});
 // Start the animation loop
 animate();
 

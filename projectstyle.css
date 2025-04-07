@@ -1,0 +1,67 @@
+
+body { margin: 0; background: black; color: white; font-family: monospace; overflow: auto; }
+canvas { display: block; width: 100vw; height: 100vh; }
+pre { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; font-size: 8px; line-height: 8px; white-space: pre-wrap; overflow: auto; }
+
+a {
+    color: cyan; /* Change hyperlink color to cyan */
+    text-decoration: none; /* Optional: Removes underline */
+    }
+
+a:hover {
+        text-decoration: underline; /* Optional: Adds underline when hovered */
+    }
+
+
+    .thumbnail-gallery {
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
+gap: 10px;
+margin-top: 20px;
+margin-bottom: 10px;
+}
+
+.thumbnail-gallery img {
+width: 80px;
+height: 80px;
+border-radius: 10px;
+object-fit: cover;
+cursor: pointer;
+transition: transform 0.2s ease;
+}
+
+.thumbnail-gallery img:hover {
+transform: scale(1.05);
+}
+
+/* Responsive layout: stack vertically on smaller screens */
+@media (max-width: 600px) {
+.thumbnail-gallery {
+flex-direction: column;
+align-items: center;
+}
+}
+
+/* Lightbox overlay */
+#lightbox-overlay {
+position: fixed;
+top: 0;
+left: 0;
+width: 100vw;
+height: 100vh;
+background: rgba(0, 0, 0, 0.9);
+display: none;
+justify-content: center;
+align-items: center;
+z-index: 1000;
+}
+
+#lightbox-overlay img {
+max-width: 90%;
+max-height: 90%;
+border-radius: 10px;
+box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+transition: 0.3s;
+}
+

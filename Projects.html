@@ -11,20 +11,7 @@
     <!-- Corrected script inclusion for CSS2DRenderer -->
     <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/renderers/CSS2DRenderer.js"></script>
 
-    <style>
-        body { margin: 0; background: black; color: white; font-family: monospace; overflow: auto; }
-        canvas { display: block; width: 100vw; height: 100vh; }
-        pre { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; font-size: 8px; line-height: 8px; white-space: pre-wrap; overflow: auto; }
-
-        a {
-            color: cyan; /* Change hyperlink color to cyan */
-            text-decoration: none; /* Optional: Removes underline */
-            }
-
-        a:hover {
-                text-decoration: underline; /* Optional: Adds underline when hovered */
-            }
-    </style>
+    <link rel="stylesheet" href="projectstyle.css">
 </head>
 <body>
     <script type="module" src="Scripts/Projects.js"></script>
@@ -44,6 +31,15 @@
             <p>The gameplay focuses on strategic combat, featuring chickens with distinct combat abilities, ranging from basic attacks to special combos and powerful finishing moves. These moves are dynamically executed, thanks to Unreal Engine’s Blueprint system, which allows for rapid iteration and seamless integration of new combat mechanics. The arena design is both whimsical and tactical, creating opportunities for creative maneuvers and exciting player interactions.</p>
             <p>In this project, I leveraged Unreal Engine's physics and collision detection systems to ensure precise and satisfying combat mechanics. The AI system in the Single player experience, built using both Unreal’s Behavior Trees and custom scripting, provides a challenging yet accessible opponent, enhancing the gameplay experience for both casual and competitive players. Additionally, I used Unreal’s animation tools to create smooth character animations, enhancing the visual impact of each action in combat.</p>
             <p>By combining Unreal Engine’s robust features with innovative gameplay design, <strong>Chickfight</strong> delivers a fast-paced and engaging brawler that appeals to players looking for both humor and tactical depth in their gaming experience. My programming expertise in Unreal Engine was essential in crafting an optimized and enjoyable experience, making <strong>Chickfight</strong> a standout project in my portfolio.</p>
+            <div class="thumbnail-gallery">
+                <img src="textures/image1.png" alt="thumb 1">
+                <img src="textures/image2.png" alt="thumb 2">
+                <img src="textures/image3.png" alt="thumb 3">
+                <img src="textures/image4.png" alt="thumb 4">
+                <img src="textures/image5.png" alt="thumb 5">
+                <img src="textures/image6.png" alt="thumb 6">
+                <img src="textures/image7.png" alt="thumb 7">
+            </div>
             
         </div>
        
@@ -70,6 +66,9 @@
             style="width: 100%; height: 500px; border: none;"></iframe>
         </div>
         
+    </div>
+    <div id="lightbox-overlay" onclick="this.style.display='none'">
+        <img src="" alt="Expanded Image">
     </div>
     
 </body>

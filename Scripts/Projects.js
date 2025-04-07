@@ -106,18 +106,25 @@ textOverlay.style.maxHeight = '80%';  // Limit the height, adjust as needed
 document.body.appendChild(textOverlay);
 
 
-// Handle mouse wheel scroll to scroll the text overlay
+// // Handle mouse wheel scroll to scroll the text overlay
+// document.addEventListener('wheel', function (event) {
+//     //event.preventDefault(); // Prevent default scrolling behavior for text overlay
+
+//     // Scroll the text overlay
+//     if (event.deltaY > 0) {
+//         textOverlay.scrollTop += 20; // Scroll down
+//     } else {
+//         textOverlay.scrollTop -= 20; // Scroll up
+//     }
+// }, { passive: false });
+
 document.addEventListener('wheel', function (event) {
-    //event.preventDefault(); // Prevent default scrolling behavior for text overlay
-
     // Scroll the text overlay
-    if (event.deltaY > 0) {
-        textOverlay.scrollTop += 20; // Scroll down
-    } else {
-        textOverlay.scrollTop -= 20; // Scroll up
-    }
-}, { passive: false });
+    textOverlay.scrollTop += event.deltaY;
 
+    // Move the camera vertically (Y-axis)
+    camera.position.y += event.deltaY * -0.01; // Adjust speed as needed (negative to make scroll intuitive)
+}, { passive: false });
 
 
 

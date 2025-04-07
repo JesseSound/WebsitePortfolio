@@ -188,6 +188,7 @@ function animate() {
 //updateLayout();
     // Add a new cube periodically to maintain a constant stream
     if (Math.random() < 0.5 && cubes.length < 1500) {
+        updateLayout();
         createCube();
     }
 

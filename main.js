@@ -422,5 +422,6 @@ onWindowResize();
 // Update layout when screen size changes
 window.addEventListener('resize', updateLayout);
 
-// Initial layout adjustment
-updateLayout();
+if (models.length === 6) {
+    updateLayout();
+}

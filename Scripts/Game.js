@@ -136,6 +136,7 @@ function animate() {
         // Optional Z-axis movement (forward/backward)
         if (keys['q']) spaceShip.position.z += 0.1; // Move forward (toward the camera)
         if (keys['e']) spaceShip.position.z -= 0.1; // Move backward (away from the camera)
+        updateOpacityBasedOnZ(spaceShip);
     }
     
     

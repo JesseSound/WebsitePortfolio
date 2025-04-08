@@ -178,7 +178,7 @@ function animate() {
 
     // Move bullets
     for (let bullet of bullets) {
-        bullet.position.y += 0.5;
+        bullet.position.y += 0.55;
     }
 
     cubes.forEach(cube => {

@@ -30,7 +30,7 @@ loader.load('Models/Spaceship.glb', function (gltf) {
     scene.add(spaceShip);
     spaceShip.position.z = 0;
     spaceShip.rotation.set(Math.PI / 2, 0, 0);
-    spaceShip.scale.set(1.0,1.05,1.0);
+    spaceShip.scale.set(0.80,0.85,0.8);
     // Modify material to wireframe for the spaceship model
     spaceShip.traverse((child) => {
         if (child.isMesh) {
@@ -156,20 +156,18 @@ function createParticles(position) {
 
     // Animate particles
     const animateParticles = () => {
+   // Set random velocities for each particle in a wider range
         for (let i = 0; i < particleCount; i++) {
-            positions[i * 3] += velocities[i * 3];
-            positions[i * 3 + 1] += velocities[i * 3 + 1];
-            positions[i * 3 + 2] += velocities[i * 3 + 2];
+            positions[i * 3] = position.x + Math.random() * 2 - 1; // x
+            positions[i * 3 + 1] = position.y + Math.random() * 2 - 1; // y
+            positions[i * 3 + 2] = position.z + Math.random() * 2 - 1; // z
 
-            // Add some gravity-like effect
-            velocities[i * 3 + 1] -= 0.01; // Make particles fall
-
-            // Reset position after they move out of view
-            if (positions[i * 3 + 1] < -10) {
-                positions[i * 3 + 1] = position.y;
-                velocities[i * 3 + 1] = (Math.random() - 0.5) * 0.1;
-            }
+            // Modify velocities to make them more random
+            velocities[i * 3] = (Math.random() - 0.5) * 0.2; // x velocity
+            velocities[i * 3 + 1] = (Math.random() - 0.5) * 0.2; // y velocity
+            velocities[i * 3 + 2] = (Math.random() - 0.5) * 0.2; // z velocity
         }
+
 
         particles.attributes.position.needsUpdate = true;
 
@@ -215,21 +213,33 @@ window.addEventListener('touchstart', onTouchStart, false);
 window.addEventListener('touchmove', onTouchMove, false);
 window.addEventListener('touchend', onTouchEnd, false);
 // Game loop
+const moveSpeed = 0.1; 
+
+const screenWidth = window.innerWidth;
+const screenHeight = window.innerHeight;
+const maxX = screenWidth / 2 - 50;  // Adjust based on spaceship size
+const maxY = screenHeight / 2 - 50; // Adjust based on spaceship size
+
+if (spaceShip) {
+    spaceShip.position.x = Math.max(-maxX, Math.min(maxX, spaceShip.position.x));
+    spaceShip.position.y = Math.max(-maxY, Math.min(maxY, spaceShip.position.y));
+}
+
 function animate() {
     requestAnimationFrame(animate);
     if (Math.random() < 0.5 && cubes.length < 100) {
         createCube();
     }
 
-    if (spaceShip) {
-        // Move spaceship (corrected Y-axis direction)
-        if (keys['arrowleft'] || keys['a']) spaceShip.position.x -= 0.1;  // Left
-        if (keys['arrowright'] || keys['d']) spaceShip.position.x += 0.1; // Right
-        if (keys['arrowup'] || keys['w']) spaceShip.position.y += 0.1;   // Up 
-        if (keys['arrowdown'] || keys['s']) spaceShip.position.y -= 0.1;   // Down (positive Y is down)
     
-      
+
+    if (spaceShip) {
+        if (keys['arrowleft'] || keys['a']) spaceShip.position.x = THREE.MathUtils.lerp(spaceShip.position.x, spaceShip.position.x - moveSpeed, 0.1);
+        if (keys['arrowright'] || keys['d']) spaceShip.position.x = THREE.MathUtils.lerp(spaceShip.position.x, spaceShip.position.x + moveSpeed, 0.1);
+        if (keys['arrowup'] || keys['w']) spaceShip.position.y = THREE.MathUtils.lerp(spaceShip.position.y, spaceShip.position.y + moveSpeed, 0.1);
+        if (keys['arrowdown'] || keys['s']) spaceShip.position.y = THREE.MathUtils.lerp(spaceShip.position.y, spaceShip.position.y - moveSpeed, 0.1);
     }
+    
     
     
 

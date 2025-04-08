@@ -195,9 +195,17 @@ function animate() {
         }
     
             updateOpacityBasedOnZ(cube);
+
+
+            bullets.forEach(bullet => {
+                if(cube.position.z === bullet.position.z && cube.position.x === bullet.position.x && cube.position.y == bullet.position.y ){
+                    console.log("Hit!");
+                }
+
+
+                });
         });
-
-
+      
 
 
 

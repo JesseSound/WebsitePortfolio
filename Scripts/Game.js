@@ -220,10 +220,7 @@ const screenHeight = window.innerHeight;
 const maxX = screenWidth / 2 - 50;  // Adjust based on spaceship size
 const maxY = screenHeight / 2 - 50; // Adjust based on spaceship size
 
-if (spaceShip) {
-    spaceShip.position.x = Math.max(-maxX, Math.min(maxX, spaceShip.position.x));
-    spaceShip.position.y = Math.max(-maxY, Math.min(maxY, spaceShip.position.y));
-}
+
 
 function animate() {
     requestAnimationFrame(animate);
@@ -235,7 +232,9 @@ function animate() {
 
     if (spaceShip) {
         if (keys['arrowleft'] || keys['a']) spaceShip.position.x = THREE.MathUtils.lerp(spaceShip.position.x, spaceShip.position.x - moveSpeed, 0.1);
+        if(spaceShip.position.x < maxX){
         if (keys['arrowright'] || keys['d']) spaceShip.position.x = THREE.MathUtils.lerp(spaceShip.position.x, spaceShip.position.x + moveSpeed, 0.1);
+        }
         if (keys['arrowup'] || keys['w']) spaceShip.position.y = THREE.MathUtils.lerp(spaceShip.position.y, spaceShip.position.y + moveSpeed, 0.1);
         if (keys['arrowdown'] || keys['s']) spaceShip.position.y = THREE.MathUtils.lerp(spaceShip.position.y, spaceShip.position.y - moveSpeed, 0.1);
     }

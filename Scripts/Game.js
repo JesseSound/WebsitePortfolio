@@ -2,9 +2,7 @@
 
 // Setup scene
 const scene = new THREE.Scene();
-const camera = new THREE.OrthographicCamera(
-    window.innerWidth / -2, window.innerWidth / 2, window.innerHeight / 2, window.innerHeight / -2, 1, 1000
-);
+const camera =new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
@@ -31,7 +29,7 @@ loader.load('Models/Spaceship.glb', function (gltf) {
     spaceShip = gltf.scene; // Get the 3D model from the loader
     scene.add(spaceShip);
     spaceShip.position.z = 0;
-    spaceShip.rotation.x = 45;
+    spaceShip.rotation.set(Math.PI / 2, 0, 0);
     spaceShip.scale.set(1.0,1.05,1.0);
     // Modify material to wireframe for the spaceship model
     spaceShip.traverse((child) => {

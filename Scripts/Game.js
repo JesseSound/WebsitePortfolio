@@ -198,9 +198,18 @@ function animate() {
 
 
             bullets.forEach(bullet => {
-                if(cube.position.z === bullet.position.z && cube.position.x === bullet.position.x && cube.position.y == bullet.position.y ){
-                    console.log("Hit!");
+                let distance = cube.position.distanceTo(bullet.position);
+                if (distance < 1) { // Adjust 1 to control hitbox size
+                    
+                        console.log("Hit!");
+                        scene.remove(cube);
+                        scene.remove(bullet);
+                        cubes.splice(cubes.indexOf(cube), 1);
+                        bullets.splice(bullets.indexOf(bullet), 1);
+                    
+                    
                 }
+
 
 
                 });

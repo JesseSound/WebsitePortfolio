@@ -121,7 +121,66 @@ function updateOpacityBasedOnZ(object) {
 }
 
 
+// Create particle effect
+function createParticles(position) {
+    const particleCount = 100;
+    const particles = new THREE.BufferGeometry();
+    const positions = new Float32Array(particleCount * 3);
+    const velocities = new Float32Array(particleCount * 3);
 
+    // Set random positions and velocities for each particle
+    for (let i = 0; i < particleCount; i++) {
+        positions[i * 3] = position.x + Math.random() * 2 - 1; // x
+        positions[i * 3 + 1] = position.y + Math.random() * 2 - 1; // y
+        positions[i * 3 + 2] = position.z + Math.random() * 2 - 1; // z
+
+        velocities[i * 3] = (Math.random() - 0.5) * 0.1; // x velocity
+        velocities[i * 3 + 1] = (Math.random() - 0.5) * 0.1; // y velocity
+        velocities[i * 3 + 2] = (Math.random() - 0.5) * 0.1; // z velocity
+    }
+
+    particles.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    particles.setAttribute('velocity', new THREE.BufferAttribute(velocities, 3));
+
+    // Particle material
+    const material = new THREE.PointsMaterial({
+        color: 0xFF5733,  // Particle color (can change to fit the effect)
+        size: 0.1,
+        transparent: true,
+        opacity: 0.8,
+        blending: THREE.AdditiveBlending
+    });
+
+    const particleSystem = new THREE.Points(particles, material);
+    scene.add(particleSystem);
+
+    // Animate particles
+    const animateParticles = () => {
+        for (let i = 0; i < particleCount; i++) {
+            positions[i * 3] += velocities[i * 3];
+            positions[i * 3 + 1] += velocities[i * 3 + 1];
+            positions[i * 3 + 2] += velocities[i * 3 + 2];
+
+            // Add some gravity-like effect
+            velocities[i * 3 + 1] -= 0.01; // Make particles fall
+
+            // Reset position after they move out of view
+            if (positions[i * 3 + 1] < -10) {
+                positions[i * 3 + 1] = position.y;
+                velocities[i * 3 + 1] = (Math.random() - 0.5) * 0.1;
+            }
+        }
+
+        particles.attributes.position.needsUpdate = true;
+
+        // Remove particle system after some time
+        setTimeout(() => {
+            scene.remove(particleSystem);
+        }, 1000);
+    };
+    
+    animateParticles();
+}
 function onTouchStart(event) {
     if (event.touches.length === 1) {
         touchStartX = event.touches[0].pageX;
@@ -158,7 +217,7 @@ window.addEventListener('touchend', onTouchEnd, false);
 // Game loop
 function animate() {
     requestAnimationFrame(animate);
-    if (Math.random() < 0.5 && cubes.length < 1500) {
+    if (Math.random() < 0.5 && cubes.length < 100) {
         createCube();
     }
 
@@ -169,9 +228,7 @@ function animate() {
         if (keys['arrowup'] || keys['w']) spaceShip.position.y += 0.1;   // Up 
         if (keys['arrowdown'] || keys['s']) spaceShip.position.y -= 0.1;   // Down (positive Y is down)
     
-        // Optional Z-axis movement (forward/backward)
-        if (keys['q']) spaceShip.position.z -= 0.1; // Move forward
-        if (keys['e']) spaceShip.position.z += 0.1; // Move backward 
+      
     }
     
     
@@ -203,6 +260,7 @@ function animate() {
                 if (distance < 1) { // Adjust 1 to control hitbox size
                     
                         console.log("Hit!");
+                        createParticles(cube.position); 
                         scene.remove(cube);
                         scene.remove(bullet);
                         cubes.splice(cubes.indexOf(cube), 1);

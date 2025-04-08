@@ -92,9 +92,9 @@ function createCube() {
     let rangeX = window.innerWidth / 2;
     let rangeY = window.innerHeight / 2;
 
-    let minZ = -35;  // Furthest in front of the camera
-    let maxZ = 1;   // Closest in front of the camera
-    let zPosition = Math.random() * (maxZ - minZ) + minZ; // Ensure cubes spawn in front of the camera
+    let zPosition = 0;
+
+    
 
     cube.position.set(
         Math.random() * rangeX - rangeX / 2,
@@ -190,7 +190,8 @@ function animate() {
         if (cube.position.y < -20) {
             cube.position.y = 20;
             cube.position.x = Math.random() * 40 - 20;
-            cube.position.z = Math.random() * (-5 + 30) - 30; // Keep cube in front of the camera
+            cube.position.z = 0;
+
             cube.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
         }
     

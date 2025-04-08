@@ -213,7 +213,7 @@ window.addEventListener('touchstart', onTouchStart, false);
 window.addEventListener('touchmove', onTouchMove, false);
 window.addEventListener('touchend', onTouchEnd, false);
 // Game loop
-const moveSpeed = 0.1; 
+const moveSpeed = 0.61; 
 
 const screenWidth = window.innerWidth;
 const screenHeight = window.innerHeight;

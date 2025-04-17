@@ -102,7 +102,7 @@ function createCube() {
         zPosition
     );
     cube.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
-
+    cube.scale.set(0.5,0.5,0.5);
     scene.add(cube);
     cubes.push(cube);
 }
@@ -213,7 +213,7 @@ window.addEventListener('touchstart', onTouchStart, false);
 window.addEventListener('touchmove', onTouchMove, false);
 window.addEventListener('touchend', onTouchEnd, false);
 // Game loop
-const moveSpeed = 0.61; 
+const moveSpeed = 0.861; 
 
 const screenWidth = window.innerWidth;
 const screenHeight = window.innerHeight;

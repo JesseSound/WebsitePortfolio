@@ -163,19 +163,34 @@ function createParticles(position) {
 
 function onTouchStart(event) {
     if (event.touches.length === 1 && spaceShip) {
-        const touchX = event.touches[0].clientX;
-        const screenMiddle = window.innerWidth / 2;
+        const touch = event.touches[0];
+        const touchX = (touch.clientX / window.innerWidth) * 2 - 1;
+        const touchY = -(touch.clientY / window.innerHeight) * 2 + 1;
 
-        let delta = moveSpeed * (touchX < screenMiddle ? -1 : 1);
-        spaceShip.position.x = THREE.MathUtils.lerp(spaceShip.position.x, spaceShip.position.x + delta, 0.2);
+        // Create a raycaster to detect object touch
+        const raycaster = new THREE.Raycaster();
+        raycaster.setFromCamera(new THREE.Vector2(touchX, touchY), camera);
+        const intersects = raycaster.intersectObject(spaceShip, true);
 
-        // Clamp after move
-        const projected = spaceShip.position.clone().project(camera);
-        if (projected.x < -1 || projected.x > 1) {
-            spaceShip.position.x -= delta;
+        if (intersects.length > 0) {
+            // Tapped the spaceship -> fire!
+            shoot();
+        } else {
+            // Move spaceship toward finger
+            const target = new THREE.Vector3(touchX, touchY, 0.5);
+            target.unproject(camera);
+
+            // Smoothly move spaceship toward the touch point
+            const dir = target.sub(camera.position).normalize();
+            const distance = (spaceShip.position.z - camera.position.z) / dir.z;
+            const touchPos = camera.position.clone().add(dir.multiplyScalar(distance));
+
+            spaceShip.position.x = THREE.MathUtils.lerp(spaceShip.position.x, touchPos.x, 0.5);
+            spaceShip.position.y = THREE.MathUtils.lerp(spaceShip.position.y, touchPos.y, 0.5);
         }
     }
 }
+
 
 
 function onTouchEnd() {

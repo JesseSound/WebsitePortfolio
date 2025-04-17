@@ -287,7 +287,7 @@ function animate() {
                     bullets.splice(bullets.indexOf(bullet), 1);
                 
                     cubesDestroyed++;
-                    cubesDestroyed++;
+                   
                     const counter = document.getElementById("cube-counter");
                     counter.textContent = `Cubes Destroyed: ${cubesDestroyed}`;
 

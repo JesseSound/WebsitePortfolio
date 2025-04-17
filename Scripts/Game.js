@@ -74,6 +74,7 @@ document.addEventListener('keydown', (e) => {
 
 
 let cubes = [];
+const moveSpeed = 0.861; 
 
 // Track the previous window size
 let previousWidth = window.innerWidth;
@@ -181,39 +182,32 @@ function createParticles(position) {
 }
 function onTouchStart(event) {
     if (event.touches.length === 1) {
-        touchStartX = event.touches[0].pageX;
-        touchStartY = event.touches[0].pageY;
-        isTouching = true;
-    }
-}
+        const touchX = event.touches[0].clientX;
+        const screenMiddle = window.innerWidth / 2;
 
-function onTouchMove(event) {
-    if (isTouching && event.touches.length === 1) {
-        const touchEndX = event.touches[0].pageX;
-        const touchEndY = event.touches[0].pageY;
-
-        const deltaX = touchEndX - touchStartX;
-        const deltaY = touchEndY - touchStartY;
         if (spaceShip) {
-        // Rotate the camera based on swipe distance
-        spaceShip.position.y += deltaX * 0.005; // Adjust sensitivity here
-        spaceShip.position.x -= deltaY * 0.005; // Adjust sensitivity here
+            if (touchX < screenMiddle) {
+                // Move left
+                spaceShip.position.x = THREE.MathUtils.lerp(spaceShip.position.x, spaceShip.position.x - moveSpeed, 0.2);
+            } else {
+                // Move right
+                spaceShip.position.x = THREE.MathUtils.lerp(spaceShip.position.x, spaceShip.position.x + moveSpeed, 0.2);
+            }
         }
-        // Update touch start position for the next move
-        touchStartX = touchEndX;
-        touchStartY = touchEndY;
     }
 }
+
+
+
 function onTouchEnd() {
     isTouching = false;
 }
 
 // Event listeners for touch controls
 window.addEventListener('touchstart', onTouchStart, false);
-window.addEventListener('touchmove', onTouchMove, false);
+
 window.addEventListener('touchend', onTouchEnd, false);
 // Game loop
-const moveSpeed = 0.861; 
 
 const screenWidth = window.innerWidth;
 const screenHeight = window.innerHeight;

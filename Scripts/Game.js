@@ -212,7 +212,7 @@ const maxY = screenHeight / 2 - 50; // Adjust based on spaceship size
 
 function animate() {
     requestAnimationFrame(animate);
-    if (Math.random() < 0.5 && cubes.length < 100) {
+    if (Math.random() < 0.5 && cubes.length < 1300) {
         createCube();
     }
 

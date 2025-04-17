@@ -78,6 +78,7 @@ document.addEventListener('keydown', (e) => {
 let cubes = [];
 const particleSystems = [];
 const moveSpeed = 0.861; 
+let cubesDestroyed = 0;
 
 // Track the previous window size
 let previousWidth = window.innerWidth;
@@ -161,22 +162,20 @@ function createParticles(position) {
 }
 
 function onTouchStart(event) {
-    if (event.touches.length === 1) {
+    if (event.touches.length === 1 && spaceShip) {
         const touchX = event.touches[0].clientX;
         const screenMiddle = window.innerWidth / 2;
 
-        if (spaceShip) {
-            if (touchX < screenMiddle) {
-                // Move left
-                spaceShip.position.x = THREE.MathUtils.lerp(spaceShip.position.x, spaceShip.position.x - moveSpeed, 0.2);
-            } else {
-                // Move right
-                spaceShip.position.x = THREE.MathUtils.lerp(spaceShip.position.x, spaceShip.position.x + moveSpeed, 0.2);
-            }
+        let delta = moveSpeed * (touchX < screenMiddle ? -1 : 1);
+        spaceShip.position.x = THREE.MathUtils.lerp(spaceShip.position.x, spaceShip.position.x + delta, 0.2);
+
+        // Clamp after move
+        const projected = spaceShip.position.clone().project(camera);
+        if (projected.x < -1 || projected.x > 1) {
+            spaceShip.position.x -= delta;
         }
     }
 }
-
 
 
 function onTouchEnd() {
@@ -279,17 +278,27 @@ function animate() {
 
             bullets.forEach(bullet => {
                 let distance = cube.position.distanceTo(bullet.position);
-                if (distance < 1) { // Adjust 1 to control hitbox size
-                    
-                        console.log("Hit!");
-                        createParticles(cube.position); 
-                        scene.remove(cube);
-                        scene.remove(bullet);
-                        cubes.splice(cubes.indexOf(cube), 1);
-                        bullets.splice(bullets.indexOf(bullet), 1);
-                    
-                    
+                if (distance < 1) {
+                    console.log("Hit!");
+                    createParticles(cube.position); 
+                    scene.remove(cube);
+                    scene.remove(bullet);
+                    cubes.splice(cubes.indexOf(cube), 1);
+                    bullets.splice(bullets.indexOf(bullet), 1);
+                
+                    cubesDestroyed++;
+                    cubesDestroyed++;
+                    const counter = document.getElementById("cube-counter");
+                    counter.textContent = `Cubes Destroyed: ${cubesDestroyed}`;
+
+                    // Trigger pop animation
+                    counter.classList.remove("pop"); // Reset in case it’s already active
+                    void counter.offsetWidth; // Force reflow
+                    counter.classList.add("pop");
+
+                    document.getElementById("cube-counter").textContent = `Cubes Destroyed: ${cubesDestroyed}`;
                 }
+                
 
 
 

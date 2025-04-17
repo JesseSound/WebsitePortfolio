@@ -15,9 +15,33 @@
         body { margin: 0; background: black; color: white; font-family: monospace; overflow: hidden; }
         canvas { display: block; width: 100vw; height: 100vh; }
         pre { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; font-size: 8px; line-height: 8px; white-space: pre-wrap; overflow: hidden; }
-    </style>
+
+                #cube-counter {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-family: Arial, sans-serif;
+            font-size: 24px;
+            z-index: 1;
+            text-shadow: 1px 1px 2px black;
+        }
+        @keyframes pop {
+            0% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.3); }
+            100% { transform: translateX(-50%) scale(1); }
+        }
+
+        #cube-counter.pop {
+            animation: pop 0.3s ease;
+        }
+
+     </style>
 </head>
 <body>
     <script type="module" src="Scripts/Game.js"></script>
+    <div id="cube-counter"><h1> Destroyed: 0</div>h1></div>
+
 </body>
 </html>

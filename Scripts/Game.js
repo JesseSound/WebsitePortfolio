@@ -21,6 +21,8 @@ let isTouching = false;
 
 
 let spaceShip = null;
+
+
 // Create a loader for GLTF models
 const loader = new THREE.GLTFLoader();
 let loadedModels = {};
@@ -74,6 +76,7 @@ document.addEventListener('keydown', (e) => {
 
 
 let cubes = [];
+const particleSystems = [];
 const moveSpeed = 0.861; 
 
 // Track the previous window size
@@ -129,23 +132,21 @@ function createParticles(position) {
     const positions = new Float32Array(particleCount * 3);
     const velocities = new Float32Array(particleCount * 3);
 
-    // Set random positions and velocities for each particle
     for (let i = 0; i < particleCount; i++) {
-        positions[i * 3] = position.x + Math.random() * 2 - 1; // x
-        positions[i * 3 + 1] = position.y + Math.random() * 2 - 1; // y
-        positions[i * 3 + 2] = position.z + Math.random() * 2 - 1; // z
+        positions[i * 3] = position.x + Math.random() * 2 - 1;
+        positions[i * 3 + 1] = position.y + Math.random() * 2 - 1;
+        positions[i * 3 + 2] = position.z + Math.random() * 2 - 1;
 
-        velocities[i * 3] = (Math.random() - 0.5) * 0.1; // x velocity
-        velocities[i * 3 + 1] = (Math.random() - 0.5) * 0.1; // y velocity
-        velocities[i * 3 + 2] = (Math.random() - 0.5) * 0.1; // z velocity
+        velocities[i * 3] = (Math.random() - 0.5) * 0.1;
+        velocities[i * 3 + 1] = (Math.random() - 0.5) * 0.1;
+        velocities[i * 3 + 2] = (Math.random() - 0.5) * 0.1;
     }
 
     particles.setAttribute('position', new THREE.BufferAttribute(positions, 3));
     particles.setAttribute('velocity', new THREE.BufferAttribute(velocities, 3));
 
-    // Particle material
     const material = new THREE.PointsMaterial({
-        color: 0xFF5733,  // Particle color (can change to fit the effect)
+        color: 0xFF5733,
         size: 0.1,
         transparent: true,
         opacity: 0.8,
@@ -155,31 +156,10 @@ function createParticles(position) {
     const particleSystem = new THREE.Points(particles, material);
     scene.add(particleSystem);
 
-    // Animate particles
-    const animateParticles = () => {
-   // Set random velocities for each particle in a wider range
-        for (let i = 0; i < particleCount; i++) {
-            positions[i * 3] = position.x + Math.random() * 2 - 1; // x
-            positions[i * 3 + 1] = position.y + Math.random() * 2 - 1; // y
-            positions[i * 3 + 2] = position.z + Math.random() * 2 - 1; // z
-
-            // Modify velocities to make them more random
-            velocities[i * 3] = (Math.random() - 0.5) * 0.2; // x velocity
-            velocities[i * 3 + 1] = (Math.random() - 0.5) * 0.2; // y velocity
-            velocities[i * 3 + 2] = (Math.random() - 0.5) * 0.2; // z velocity
-        }
-
-
-        particles.attributes.position.needsUpdate = true;
-
-        // Remove particle system after some time
-        setTimeout(() => {
-            scene.remove(particleSystem);
-        }, 1000);
-    };
-    
-    animateParticles();
+    particleSystem.birthTime = clock.getElapsedTime(); // for cleanup later
+    particleSystems.push(particleSystem);
 }
+
 function onTouchStart(event) {
     if (event.touches.length === 1) {
         const touchX = event.touches[0].clientX;
@@ -223,18 +203,57 @@ function animate() {
     }
 
     
-
+    const time = clock.getElapsedTime();
     if (spaceShip) {
-        if (keys['arrowleft'] || keys['a']) spaceShip.position.x = THREE.MathUtils.lerp(spaceShip.position.x, spaceShip.position.x - moveSpeed, 0.1);
-        if(spaceShip.position.x < maxX){
-        if (keys['arrowright'] || keys['d']) spaceShip.position.x = THREE.MathUtils.lerp(spaceShip.position.x, spaceShip.position.x + moveSpeed, 0.1);
-        }
-        if (keys['arrowup'] || keys['w']) spaceShip.position.y = THREE.MathUtils.lerp(spaceShip.position.y, spaceShip.position.y + moveSpeed, 0.1);
-        if (keys['arrowdown'] || keys['s']) spaceShip.position.y = THREE.MathUtils.lerp(spaceShip.position.y, spaceShip.position.y - moveSpeed, 0.1);
+        // Project current position to screen space
+        let projected = spaceShip.position.clone().project(camera);
+    
+        // Define movement directions
+        let deltaX = 0;
+        let deltaY = 0;
+        if (keys['arrowleft'] || keys['a']) deltaX -= moveSpeed;
+        if (keys['arrowright'] || keys['d']) deltaX += moveSpeed;
+        if (keys['arrowup'] || keys['w']) deltaY += moveSpeed;
+        if (keys['arrowdown'] || keys['s']) deltaY -= moveSpeed;
+    
+        // Apply movement
+        spaceShip.position.x = THREE.MathUtils.lerp(spaceShip.position.x, spaceShip.position.x + deltaX, 0.1);
+        spaceShip.position.y = THREE.MathUtils.lerp(spaceShip.position.y, spaceShip.position.y + deltaY, 0.1);
+    
+        // After moving, re-check projected screen position
+        projected = spaceShip.position.clone().project(camera);
+    
+        // Clamp so spaceship stays within NDC bounds (-1 to 1)
+        if (projected.x < -1) spaceShip.position.x -= deltaX;
+        if (projected.x > 1)  spaceShip.position.x -= deltaX;
+        if (projected.y < -1) spaceShip.position.y -= deltaY;
+        if (projected.y > 1)  spaceShip.position.y -= deltaY;
     }
     
     
     
+//animate particles
+
+
+    for (let i = particleSystems.length - 1; i >= 0; i--) {
+        const ps = particleSystems[i];
+        const positions = ps.geometry.attributes.position.array;
+        const velocities = ps.geometry.attributes.velocity.array;
+
+        for (let j = 0; j < positions.length; j += 3) {
+            positions[j]     += velocities[j];
+            positions[j + 1] += velocities[j + 1];
+            positions[j + 2] += velocities[j + 2];
+        }
+
+        ps.geometry.attributes.position.needsUpdate = true;
+
+        // Remove particle system after 1 second
+        if (time - ps.birthTime > 1.0) {
+            scene.remove(ps);
+            particleSystems.splice(i, 1);
+        }
+    }
 
     // Move bullets
     for (let bullet of bullets) {

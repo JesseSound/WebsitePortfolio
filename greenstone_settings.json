@@ -1,0 +1,7 @@
+{
+  "source_dir": "C:/Users/jessw/OneDrive/SyncTest/Input/MergeTest",
+  "output_dir": "C:/Users/jessw/OneDrive/SyncTest/Output",
+  "template_xlsx": "C:/Users/jessw/Documents/GreenstoneMeats/Prototype/CodeBase/Template.xlsx",
+  "po_template_xlsx": "C:/Users/jessw/Documents/GreenstoneMeats/Prototype/CodeBase/Template - Python Script PO Confirmation.xlsx",
+  "move_pdfs": false
+}

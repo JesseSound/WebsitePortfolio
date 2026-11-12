@@ -1,0 +1,42 @@
+name: Refresh social feed for Render
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 * * * *'
+permissions:
+  contents: write
+concurrency:
+  group: social-refresh
+  cancel-in-progress: false
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.SOCIAL_PUSH_TOKEN || github.token }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Refresh social sources
+        run: node Scripts/sync-social.mjs
+        continue-on-error: true
+        env:
+          INSTAGRAM_USER_ID: ${{ secrets.INSTAGRAM_USER_ID }}
+          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+      - name: Commit feed for Render auto-deploy
+        run: |
+          git config user.name 'Social feed updater'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add portfolio/data/social.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Update social feed'
+            git push
+          fi
+      - name: Trigger Render when a deploy hook is configured
+        env:
+          RENDER_DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
+        run: |
+          if [ -n "$RENDER_DEPLOY_HOOK" ]; then
+            curl --fail --silent --show-error --output /dev/null --request POST "$RENDER_DEPLOY_HOOK"
+          fi

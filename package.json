@@ -15,8 +15,11 @@
   "type": "commonjs",
   "main": "main.js",
   "scripts": {
-    "build": "webpack --mode production",
-    "start": "webpack serve --mode development"
+    "build": "node Scripts/build-portfolio.mjs",
+    "start": "node Scripts/serve-portfolio.mjs",
+    "build:legacy": "webpack --mode production",
+    "start:legacy": "webpack serve --mode development",
+    "sync:social": "node Scripts/sync-social.mjs"
   },
   "dependencies": {
     "accepts": "^1.3.8",

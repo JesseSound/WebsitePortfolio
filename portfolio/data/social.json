@@ -1,0 +1,77 @@
+{
+  "checkedAt": "2026-11-12T07:24:31.916Z",
+  "sources": {
+    "youtube": {
+      "status": "ready",
+      "updatedAt": "2026-11-12T07:24:32.442Z"
+    },
+    "instagram": {
+      "status": "not_connected"
+    }
+  },
+  "youtube": [
+    {
+      "id": "VFPCHPQCHkM",
+      "platform": "youtube",
+      "title": "I Booked a 24-Hour Gig and Regretted Everything",
+      "url": "https://www.youtube.com/watch?v=VFPCHPQCHkM",
+      "image": "https://i.ytimg.com/vi/VFPCHPQCHkM/hqdefault.jpg"
+    },
+    {
+      "id": "vBm_ew8MCHk",
+      "platform": "youtube",
+      "title": "Kyle McAdams Band at Maple Grove Farms",
+      "url": "https://www.youtube.com/watch?v=vBm_ew8MCHk",
+      "image": "https://i.ytimg.com/vi/vBm_ew8MCHk/hqdefault.jpg"
+    },
+    {
+      "id": "DFgV6B7iIbg",
+      "platform": "youtube",
+      "title": "when the party's over (ocean eyes intro) Solo Bass",
+      "url": "https://www.youtube.com/watch?v=DFgV6B7iIbg",
+      "image": "https://i.ytimg.com/vi/DFgV6B7iIbg/hqdefault.jpg"
+    },
+    {
+      "id": "k4QWL-Ei3nc",
+      "platform": "youtube",
+      "title": "Hero By Enrique Iglesias (TommyLeeDepp Cover)",
+      "url": "https://www.youtube.com/watch?v=k4QWL-Ei3nc",
+      "image": "https://i.ytimg.com/vi/k4QWL-Ei3nc/hqdefault.jpg"
+    },
+    {
+      "id": "cfKpJx2uNmY",
+      "platform": "youtube",
+      "title": "thank u, next - Ariana Grande Bass Cover",
+      "url": "https://www.youtube.com/watch?v=cfKpJx2uNmY",
+      "image": "https://i.ytimg.com/vi/cfKpJx2uNmY/hqdefault.jpg"
+    },
+    {
+      "id": "yIYWmH2CHRo",
+      "platform": "youtube",
+      "title": "Ariana Grande - No Tears Left To Cry Bass Cover",
+      "url": "https://www.youtube.com/watch?v=yIYWmH2CHRo",
+      "image": "https://i.ytimg.com/vi/yIYWmH2CHRo/hqdefault.jpg"
+    },
+    {
+      "id": "3iNZj3nWQt4",
+      "platform": "youtube",
+      "title": "Love Yourself - Justin Bieber Voice and Bass cover",
+      "url": "https://www.youtube.com/watch?v=3iNZj3nWQt4",
+      "image": "https://i.ytimg.com/vi/3iNZj3nWQt4/hqdefault.jpg"
+    },
+    {
+      "id": "jIBkCxlf-C0",
+      "platform": "youtube",
+      "title": "Jon Bellion Guillotine Bass Cover",
+      "url": "https://www.youtube.com/watch?v=jIBkCxlf-C0",
+      "image": "https://i.ytimg.com/vi/jIBkCxlf-C0/hqdefault.jpg"
+    },
+    {
+      "id": "ov9n-uY6nnI",
+      "platform": "youtube",
+      "title": "Don't Change Horses- Tower of power Bass jam",
+      "url": "https://www.youtube.com/watch?v=ov9n-uY6nnI",
+      "image": "https://i.ytimg.com/vi/ov9n-uY6nnI/hqdefault.jpg"
+    }
+  ]
+}

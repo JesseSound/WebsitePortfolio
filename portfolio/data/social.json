@@ -1,12 +1,13 @@
 {
-  "checkedAt": "2026-11-13T03:27:31.908Z",
+  "checkedAt": "2026-11-13T03:58:00.308Z",
   "sources": {
     "youtube": {
       "status": "ready",
-      "updatedAt": "2026-11-13T03:27:32.324Z"
+      "updatedAt": "2026-11-13T03:58:00.765Z"
     },
     "instagram": {
-      "status": "not_connected"
+      "status": "ready",
+      "updatedAt": "2026-11-13T03:58:01.737Z"
     }
   },
   "youtube": [
@@ -72,6 +73,80 @@
       "title": "Don't Change Horses- Tower of power Bass jam",
       "url": "https://www.youtube.com/watch?v=ov9n-uY6nnI",
       "image": "https://i.ytimg.com/vi/ov9n-uY6nnI/hqdefault.jpg"
+    }
+  ],
+  "instagram": [
+    {
+      "id": "18495170113108935",
+      "platform": "instagram",
+      "title": "My new Rayquaza chair from @secretlab x @pokemon  comes cat approved",
+      "published": "2026-11-02T03:07:31+0000",
+      "url": "https://www.instagram.com/p/DfOTe4FnP9Q/",
+      "image": "https://scontent-yyz1-1.cdninstagram.com/v/t51.82787-15/878257232_18645500452052646_2561571835990314650_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0FST1VTRUxfSVRFTS5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=5ZbeC5Ruw4EQ7kNvwEQhxat&_nc_oc=AdrdDusvWK9MFjxGrWU-asfaklY4uay803pcvkc4FMNWJsejPRTW-FxJBZQDggCeFvM&_nc_zt=23&_nc_ht=scontent-yyz1-1.cdninstagram.com&edm=AFF3FJ0EAAAA&_nc_gid=S8wrhghzQKxgnXrWl5SkkQ&_nc_ct=RQosPBUKFQIAAAA&oh=00_AQSFIStGHW3ZD1WuBvEWR_vrUhbhJo79iQRg-kZAAuIWpA&oe=6AFC5C2A"
+    },
+    {
+      "id": "18194342536397493",
+      "platform": "instagram",
+      "title": "Watch at your own risk. Sharing a risky clip of a song idea I’m working on for not me to sing or play guitar on.\nTypical bass player shenanigans I guess",
+      "published": "2026-10-29T05:15:04+0000",
+      "url": "https://www.instagram.com/reel/DfEO0Afhfjd/",
+      "image": "https://scontent-yyz1-1.cdninstagram.com/v/t51.82787-15/870889005_18643930243052646_276937410967419276_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=104&_nc_map=urlgen_bucketless&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=eGwwbOV5g0IQ7kNvwG3bNxs&_nc_oc=AdoioTPherpv3S5CVv3sB1_diaxWptTZabXskmXFUtGIHhyucNGBgMcpbykgQjYhvoM&_nc_zt=23&_nc_ht=scontent-yyz1-1.cdninstagram.com&edm=AFF3FJ0EAAAA&_nc_gid=S8wrhghzQKxgnXrWl5SkkQ&_nc_tpa=Q5bMBQKaki-40GmYq5dvI_ILxosQkTeijB9ariNJt8sp6mB5rbhpktSsRccIdTiNgC1Ciq5tbr2UMkAElQ&_nc_ct=RQosPBUKFQQAAAA&oh=00_AQSy_AnQDoTgMeO0T5AtPJLid7aGiGgpoid-Mcvz9KqQnA&oe=6AFC4608"
+    },
+    {
+      "id": "17994722655052289",
+      "platform": "instagram",
+      "title": "Straight Dad Rockin’ it with @danieldidit \n\n#beastieboys #foderabass #godinguitars #fightforyourright",
+      "published": "2026-10-22T20:39:11+0000",
+      "url": "https://www.instagram.com/reel/Dez27HWvzn3/",
+      "image": "https://scontent-yyz1-1.cdninstagram.com/v/t51.82787-15/857341115_18641326765052646_8770987176703741000_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=104&_nc_map=urlgen_bucketless&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=7A4FdLdMLnwQ7kNvwF70oEB&_nc_oc=AdqtyC8FAp9NCgzPuORXe64O5k5oNPJBAnql2956x3agT-z9XrP8AsNoh0e-UrxYxwY&_nc_zt=23&_nc_ht=scontent-yyz1-1.cdninstagram.com&edm=AFF3FJ0EAAAA&_nc_gid=S8wrhghzQKxgnXrWl5SkkQ&_nc_tpa=Q5bMBQJwJl_hFGUzHYDVSTsBrjiiTneCoEgMMYzRSoSQiMyXOU0aiEkk43HRJ9wKNbPGxIz7rw0VlDHeEQ&_nc_ct=RQosPBUKFQQAAAA&oh=00_AQR_8mUDabw7_fKk0O7uv9CmIswBNsstXdZ_jlBUoUZL9A&oe=6AFC7412"
+    },
+    {
+      "id": "18225521041330346",
+      "platform": "instagram",
+      "title": "When the audience has had enough of the Bass Player I guess 😰 man I really thought the vocal lessons were paying off \n\n#livemusic #livelooping #whyhedothat",
+      "published": "2026-10-07T21:28:00+0000",
+      "url": "https://www.instagram.com/reel/DeNUUO6sR80/",
+      "image": "https://scontent-yyz1-1.cdninstagram.com/v/t51.71878-15/839960393_1756892965588287_7625994449716817893_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=11JM3I_xF1kQ7kNvwH_LX4M&_nc_oc=Adr6dNtBq_tX0mjcSH1EAfIMam73-rMLj0NvTdbbozQVrZZBIlLd7VBjCtFOzjhc07Q&_nc_zt=23&_nc_ht=scontent-yyz1-1.cdninstagram.com&edm=AFF3FJ0EAAAA&_nc_gid=S8wrhghzQKxgnXrWl5SkkQ&_nc_tpa=Q5bMBQJwPwWJ2pf1730oT4chbZyP0apVZhYf_2hJ7U_OzQ-7bne-xXGdhlltwHGAWQX2lz37p5YAzn7XyA&_nc_ct=RQosPBUKFQgAAAA&oh=00_AQQN447KLFPuYRpu7pOPUh0A-IK6rjkO81upQa0D1nir3Q&oe=6AFC4F51"
+    },
+    {
+      "id": "18056597756638303",
+      "platform": "instagram",
+      "title": "When you try to sing like AC/DC but you're just a goofy boy with a bass.\n\n@danieldidit\n\n#bassist #livemusic #pubgig #barrieontario #bassplayer #guitarist",
+      "published": "2026-09-23T16:38:40+0000",
+      "url": "https://www.instagram.com/reel/DdoweKojNVv/",
+      "image": "https://scontent-yyz1-1.cdninstagram.com/v/t51.82787-15/818062390_18630599503052646_141843471214640251_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=107&_nc_map=urlgen_bucketless&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=yVFdKSvqrlQQ7kNvwHnX7GW&_nc_oc=Adp5cEJwffKsdQCKjf6VPcDqU4Nm6bd2NJSsXDRwT0BYICiW1RS041cwCfAwdhWcf_s&_nc_zt=23&_nc_ht=scontent-yyz1-1.cdninstagram.com&edm=AFF3FJ0EAAAA&_nc_gid=S8wrhghzQKxgnXrWl5SkkQ&_nc_tpa=Q5bMBQI0coshyRKXT4DEEhykrJlMS-L__gy6Ke4Lcsa46Ewnzv7eOZamUxNCuPamlGYgSDIdgAZfjBjlBg&_nc_ct=RQosPBUKFQQAAAA&oh=00_AQR0cOpLe8cr77W-0E3nPVmbj1v8-BBFiEkWScmqELKsww&oe=6AFC5A30"
+    },
+    {
+      "id": "17998646642813861",
+      "platform": "instagram",
+      "title": "Oh MAMA we were jamming out Sex & Candy by Marcy Playground, inspired by the Wild @nickbrownell  and his performance of the song. \n\nSomeone get this man a chick",
+      "published": "2026-09-16T17:30:45+0000",
+      "url": "https://www.instagram.com/reel/DdW0kfyBCWf/",
+      "image": "https://scontent-yyz1-1.cdninstagram.com/v/t51.82787-15/794294781_18628248796052646_5363068630969484240_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=108&_nc_map=urlgen_bucketless&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=z1IbaliZBQYQ7kNvwFLhhfW&_nc_oc=Adr7TiD_1jTUhQQ9zMAmqhoVJUyfBqPQwKiM_KpOnPmPN2cPAyHRTIqXt24h2Dwl56M&_nc_zt=23&_nc_ht=scontent-yyz1-1.cdninstagram.com&edm=AFF3FJ0EAAAA&_nc_gid=S8wrhghzQKxgnXrWl5SkkQ&_nc_tpa=Q5bMBQICNJ4hBWR4aZPqwWJLUGk0oWPPYqO9EVRCoWPLrWkWshUPRe3K3DyzKDw1xllelFkCSBYyfxX65A&_nc_ct=RQosPBUKFQQAAAA&oh=00_AQQKSeYgoBHiS1CT5fJlbR5MACebV7KNJaQdoiUJhP4yHQ&oe=6AFC5286"
+    },
+    {
+      "id": "17944108494323297",
+      "platform": "instagram",
+      "title": "The Good Ol’ Boys doing some Green Day On Labour Day but the bass player is getting burned by the sun while the singer enjoys the shade \n\n#bass #greenday #livel",
+      "published": "2026-09-08T02:38:04+0000",
+      "url": "https://www.instagram.com/reel/DdAn-1nM6y9/",
+      "image": "https://scontent-yyz1-1.cdninstagram.com/v/t51.82787-15/800715010_18625355566052646_7301731375031220047_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=102&_nc_map=urlgen_bucketless&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=QMnT71fUypcQ7kNvwEhExDO&_nc_oc=AdqSU4Q98FT_6UGFimFZD5skNSNIbfEk7VhjMA_Lsv1poy1hryhvVvlmcbbOwFhrNZU&_nc_zt=23&_nc_ht=scontent-yyz1-1.cdninstagram.com&edm=AFF3FJ0EAAAA&_nc_gid=S8wrhghzQKxgnXrWl5SkkQ&_nc_tpa=Q5bMBQLFNubpsOD_ALExT0WyoGFsL_1KIjjEgUXK0emhmEv2COufrrjEB2HzFM-aqKe1e_IhKbdsQ_JP7w&_nc_ct=RQosPBUKFQQAAAA&oh=00_AQTUIeiPI46jt5d8YeEdtgIIV1JAsOqwJ-sdTWSVs1J89Q&oe=6AFC52A6"
+    },
+    {
+      "id": "18148549435546527",
+      "platform": "instagram",
+      "title": "Bustin makes me feel good 🎙️🎼🎵🎸🥁 \n\n#bassplayer #livelooping #livemusic #ghostbusters #fodera",
+      "published": "2026-09-02T14:56:35+0000",
+      "url": "https://www.instagram.com/reel/Dcyf6e3BqG_/",
+      "image": "https://scontent-yyz1-1.cdninstagram.com/v/t51.82787-15/790024859_18623408770052646_8954645969382669333_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=111&_nc_map=urlgen_bucketless&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=nLyvxGgFXTkQ7kNvwGN4M3A&_nc_oc=Adooku1qojHC6FLeXKQZS9i96v72cdOkqESiA-yz_1uY5bw42rgFlJigTNzn7W8XOHU&_nc_zt=23&_nc_ht=scontent-yyz1-1.cdninstagram.com&edm=AFF3FJ0EAAAA&_nc_gid=S8wrhghzQKxgnXrWl5SkkQ&_nc_tpa=Q5bMBQJc8ImWPrzQWfvV1dTqLQk-eD1niGNdYE-T_US1QOx9jtlpnwHOnVcHzCcOro8IYY12ztns6kngcw&_nc_ct=RQosPBUKFQQAAAA&oh=00_AQQBmBwvqK-UKHxBCrlJxVLWJFiUmWDYv8uQxmjLWXHTdA&oe=6AFC6B46"
+    },
+    {
+      "id": "18083893505449916",
+      "platform": "instagram",
+      "title": "Jolene - Dolly Parton last night at British Arms.\n🪦 RIP to a legend \n\n#jolene #dollyparton #livemusic #livelooping #fodera",
+      "published": "2026-08-26T13:24:09+0000",
+      "url": "https://www.instagram.com/reel/DcgTs3-xtbZ/",
+      "image": "https://scontent-yyz1-1.cdninstagram.com/v/t51.82787-15/786452937_18620979877052646_3911768774029039114_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=105&_nc_map=urlgen_bucketless&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQ0xJUFMuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=n2Fc8xLW4MQQ7kNvwG6odrb&_nc_oc=AdqdBnM5W1tHm8F0D7nJjVfLHsldMh179xzo4n2XRKP0JxojaBElpIUzKRsHChj5YsE&_nc_zt=23&_nc_ht=scontent-yyz1-1.cdninstagram.com&edm=AFF3FJ0EAAAA&_nc_gid=S8wrhghzQKxgnXrWl5SkkQ&_nc_tpa=Q5bMBQJ8nCgVEpGsBfelg7QTdBQLFIGL_BnTF06Es-BNwV1DUXTPBEF4nnvLEHpIC8Ii6YW17jyVNR8olw&_nc_ct=RQosPBUKFQQAAAA&oh=00_AQRHhfFSGRON5uFc-4FIlowaeLMA10wwn6KkQR5iQWSxww&oe=6AFC5FE1"
     }
   ]
 }

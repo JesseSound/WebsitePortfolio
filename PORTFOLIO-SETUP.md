@@ -12,9 +12,9 @@ Keep the existing GitHub repository, branch, domain, and service. For a Static S
 
 ## Instagram connection
 
-The account must authorize a Meta developer app configured with Instagram Login. In its Instagram API setup, add the owner's professional account, grant basic read access, and obtain the account ID and appropriate access token. Store them only in GitHub Actions secrets (`INSTAGRAM_USER_ID`, `INSTAGRAM_ACCESS_TOKEN`) for a Static Site, or in Render environment secrets for a Web Service. Do not paste secrets into chat or source files. Keep token expiry/renewal under review; invalid credentials retain saved posts and flag the feed as stale. App setup and authorization have not yet been completed.
+The owner authorized JesseSound Portfolio through Meta Unified Login. The compatible Portfolio Read Only configuration requests instagram_basic only, with a system-user token. The refresh script uses graph.facebook.com/v27.0. Store them only in GitHub Actions secrets (`INSTAGRAM_USER_ID`, `INSTAGRAM_ACCESS_TOKEN`) for a Static Site, or in Render environment secrets for a Web Service. Do not paste secrets into chat or tracked source files. Local credentials are stored in the Git-ignored root .env file and loaded by the refresh script (Node 22 or later); the build copies only portfolio/ into site-dist/. Keep token expiry/renewal under review; invalid credentials retain saved posts and flag the feed as stale. Authorization and a live refresh were verified on November 12, 2026: nine Instagram posts were retrieved. Hosted automatic updates still require the secrets in GitHub Actions or Render; a local .env is not deployed.
 
-Official Meta setup: https://developers.facebook.com/docs/instagram-platform/instagram-api-with-instagram-login/
+Official Meta setup: https://developers.facebook.com/documentation/instagram-platform/instagram-api-with-unified-login/
 
 ## Refresh options
 

@@ -1,4 +1,8 @@
 import {parseChannelPage} from './youtube.mjs';
+import {loadEnvFile} from 'node:process';
+import {fileURLToPath} from 'node:url';
+// Local credentials are ignored by Git and never copied into the public build.
+try{loadEnvFile(fileURLToPath(new URL('../.env',import.meta.url)));}catch(e){if(e.code!=='ENOENT')throw e;}
 import {readFile,writeFile,mkdir} from 'node:fs/promises';
 const target=new URL('../portfolio/data/social.json',import.meta.url);
 const old=JSON.parse(await readFile(target,'utf8').catch(()=>'{}'));
@@ -13,7 +17,7 @@ try{
  next.youtube=items.slice(0,9);next.sources.youtube={status:'ready',updatedAt:new Date().toISOString()};
 }catch(e){try{const html=await (await get('https://www.youtube.com/@jessesound/videos',{'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/130.0.0.0 Safari/537.36'})).text();next.youtube=parseChannelPage(html);next.sources.youtube={status:'ready',updatedAt:new Date().toISOString()};}catch{next.sources.youtube={...old.sources?.youtube,status:old.youtube?.length?'stale':'unavailable'};console.error('YouTube refresh failed; saved posts retained.');failed=true;}}
 if(process.env.INSTAGRAM_ACCESS_TOKEN && process.env.INSTAGRAM_USER_ID){
- try{const url=new URL(`https://graph.instagram.com/${process.env.INSTAGRAM_API_VERSION||'v25.0'}/${encodeURIComponent(process.env.INSTAGRAM_USER_ID)}/media`);url.searchParams.set('fields','id,caption,media_type,media_url,thumbnail_url,permalink,timestamp');url.searchParams.set('limit','9');const body=await (await get(url,{Authorization:`Bearer ${process.env.INSTAGRAM_ACCESS_TOKEN}`})).json();if(!Array.isArray(body.data))throw Error('Invalid Instagram response');next.instagram=body.data.map(p=>({id:p.id,platform:'instagram',title:p.caption?.slice(0,160)||'From Instagram',published:p.timestamp,url:p.permalink,image:p.media_type==='VIDEO'?p.thumbnail_url:p.media_url}));next.sources.instagram={status:'ready',updatedAt:new Date().toISOString()};}
+ try{const url=new URL(`https://graph.facebook.com/${process.env.INSTAGRAM_API_VERSION||'v27.0'}/${encodeURIComponent(process.env.INSTAGRAM_USER_ID)}/media`);url.searchParams.set('fields','id,caption,media_type,media_url,thumbnail_url,permalink,timestamp');url.searchParams.set('limit','9');const body=await (await get(url,{Authorization:`Bearer ${process.env.INSTAGRAM_ACCESS_TOKEN}`})).json();if(!Array.isArray(body.data))throw Error('Invalid Instagram response');next.instagram=body.data.map(p=>({id:p.id,platform:'instagram',title:p.caption?.slice(0,160)||'From Instagram',published:p.timestamp,url:p.permalink,image:p.media_type==='VIDEO'?p.thumbnail_url:p.media_url}));next.sources.instagram={status:'ready',updatedAt:new Date().toISOString()};}
  catch(e){next.sources.instagram={...old.sources?.instagram,status:old.instagram?.length?'stale':'unavailable'};console.error('Instagram:',e.message);failed=true;}
 }else next.sources.instagram={status:'not_connected'};
 await mkdir(new URL('../portfolio/data/',import.meta.url),{recursive:true});await writeFile(target,JSON.stringify(next,null,2)+'\n');

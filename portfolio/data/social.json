@@ -1,9 +1,9 @@
 {
-  "checkedAt": "2026-11-14T01:28:47.933Z",
+  "checkedAt": "2026-11-14T09:03:09.924Z",
   "sources": {
     "youtube": {
       "status": "ready",
-      "updatedAt": "2026-11-14T01:28:48.478Z"
+      "updatedAt": "2026-11-14T09:03:10.248Z"
     },
     "instagram": {
       "status": "not_connected"
@@ -11,67 +11,76 @@
   },
   "youtube": [
     {
-      "id": "VFPCHPQCHkM",
+      "id": "Xjg1V10dmgU",
       "platform": "youtube",
-      "title": "I Booked a 24-Hour Gig and Regretted Everything",
-      "url": "https://www.youtube.com/watch?v=VFPCHPQCHkM",
-      "image": "https://i.ytimg.com/vi/VFPCHPQCHkM/hqdefault.jpg"
+      "title": "Working on original music #originalmusic #countrymusic#prs #acoustic",
+      "published": "2026-10-29T18:50:43+00:00",
+      "url": "https://www.youtube.com/watch?v=Xjg1V10dmgU",
+      "image": "https://i.ytimg.com/vi/Xjg1V10dmgU/hqdefault.jpg"
     },
     {
-      "id": "vBm_ew8MCHk",
+      "id": "iy6duwPnRIY",
       "platform": "youtube",
-      "title": "Kyle McAdams Band at Maple Grove Farms",
-      "url": "https://www.youtube.com/watch?v=vBm_ew8MCHk",
-      "image": "https://i.ytimg.com/vi/vBm_ew8MCHk/hqdefault.jpg"
+      "title": "Tuesday Tunes with ze Good Ol Boys",
+      "published": "2026-10-21T19:12:55+00:00",
+      "url": "https://www.youtube.com/watch?v=iy6duwPnRIY",
+      "image": "https://i.ytimg.com/vi/iy6duwPnRIY/hqdefault.jpg"
     },
     {
-      "id": "DFgV6B7iIbg",
+      "id": "8Pu2Browu54",
       "platform": "youtube",
-      "title": "when the party's over (ocean eyes intro) Solo Bass",
-      "url": "https://www.youtube.com/watch?v=DFgV6B7iIbg",
-      "image": "https://i.ytimg.com/vi/DFgV6B7iIbg/hqdefault.jpg"
+      "title": "Why would he do this to me???? #livemusic #bassist #livelooping #bars #karen",
+      "published": "2026-10-08T01:48:20+00:00",
+      "url": "https://www.youtube.com/watch?v=8Pu2Browu54",
+      "image": "https://i.ytimg.com/vi/8Pu2Browu54/hqdefault.jpg"
     },
     {
-      "id": "k4QWL-Ei3nc",
+      "id": "-CoF9Uv4Ogs",
       "platform": "youtube",
-      "title": "Hero By Enrique Iglesias (TommyLeeDepp Cover)",
-      "url": "https://www.youtube.com/watch?v=k4QWL-Ei3nc",
-      "image": "https://i.ytimg.com/vi/k4QWL-Ei3nc/hqdefault.jpg"
+      "title": "Tuesday Tunes with ze Good Ol Boys",
+      "published": "2026-10-07T17:05:06+00:00",
+      "url": "https://www.youtube.com/watch?v=-CoF9Uv4Ogs",
+      "image": "https://i.ytimg.com/vi/-CoF9Uv4Ogs/hqdefault.jpg"
     },
     {
-      "id": "cfKpJx2uNmY",
+      "id": "2dGx5tjD-dA",
       "platform": "youtube",
-      "title": "thank u, next - Ariana Grande Bass Cover",
-      "url": "https://www.youtube.com/watch?v=cfKpJx2uNmY",
-      "image": "https://i.ytimg.com/vi/cfKpJx2uNmY/hqdefault.jpg"
+      "title": "Tuesday Tunes with ze Good Ol Boys",
+      "published": "2026-10-07T16:37:22+00:00",
+      "url": "https://www.youtube.com/watch?v=2dGx5tjD-dA",
+      "image": "https://i.ytimg.com/vi/2dGx5tjD-dA/hqdefault.jpg"
     },
     {
-      "id": "yIYWmH2CHRo",
+      "id": "Mea7E70yVow",
       "platform": "youtube",
-      "title": "Ariana Grande - No Tears Left To Cry Bass Cover",
-      "url": "https://www.youtube.com/watch?v=yIYWmH2CHRo",
-      "image": "https://i.ytimg.com/vi/yIYWmH2CHRo/hqdefault.jpg"
+      "title": "Life advice with the bass player #bassfeatured #lifeadvice #goofy #livecomedy",
+      "published": "2026-10-06T14:45:34+00:00",
+      "url": "https://www.youtube.com/watch?v=Mea7E70yVow",
+      "image": "https://i.ytimg.com/vi/Mea7E70yVow/hqdefault.jpg"
     },
     {
-      "id": "3iNZj3nWQt4",
+      "id": "qfqm9ptYAjU",
       "platform": "youtube",
-      "title": "Love Yourself - Justin Bieber Voice and Bass cover",
-      "url": "https://www.youtube.com/watch?v=3iNZj3nWQt4",
-      "image": "https://i.ytimg.com/vi/3iNZj3nWQt4/hqdefault.jpg"
+      "title": "Tuesday Tunes with ze Good Ol Boys",
+      "published": "2026-09-30T16:22:32+00:00",
+      "url": "https://www.youtube.com/watch?v=qfqm9ptYAjU",
+      "image": "https://i.ytimg.com/vi/qfqm9ptYAjU/hqdefault.jpg"
     },
     {
-      "id": "jIBkCxlf-C0",
+      "id": "EMauL2yURh8",
       "platform": "youtube",
-      "title": "Jon Bellion Guillotine Bass Cover",
-      "url": "https://www.youtube.com/watch?v=jIBkCxlf-C0",
-      "image": "https://i.ytimg.com/vi/jIBkCxlf-C0/hqdefault.jpg"
+      "title": "Tuesday Tunes with ze Good Ol Boys",
+      "published": "2026-09-23T16:20:06+00:00",
+      "url": "https://www.youtube.com/watch?v=EMauL2yURh8",
+      "image": "https://i.ytimg.com/vi/EMauL2yURh8/hqdefault.jpg"
     },
     {
-      "id": "ov9n-uY6nnI",
+      "id": "rIYpL_a0dGc",
       "platform": "youtube",
-      "title": "Don't Change Horses- Tower of power Bass jam",
-      "url": "https://www.youtube.com/watch?v=ov9n-uY6nnI",
-      "image": "https://i.ytimg.com/vi/ov9n-uY6nnI/hqdefault.jpg"
+      "title": "Tuesday Tunes with ze Good Ol Boys",
+      "published": "2026-09-23T05:05:02+00:00",
+      "url": "https://www.youtube.com/watch?v=rIYpL_a0dGc",
+      "image": "https://i.ytimg.com/vi/rIYpL_a0dGc/hqdefault.jpg"
     }
   ],
   "instagram": [

@@ -1,12 +1,12 @@
 {
-  "checkedAt": "2026-11-26T02:37:34.224Z",
+  "checkedAt": "2026-11-26T09:38:12.415Z",
   "sources": {
     "youtube": {
       "status": "ready",
-      "updatedAt": "2026-11-26T02:37:34.498Z"
+      "updatedAt": "2026-11-26T09:38:12.852Z"
     },
     "instagram": {
-      "status": "ready",
+      "status": "stale",
       "updatedAt": "2026-11-26T02:37:36.746Z"
     }
   },

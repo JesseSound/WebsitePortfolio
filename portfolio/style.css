@@ -45,3 +45,18 @@ h1{font-size:clamp(90px,14.4vw,204px);margin-top:40px}h1 span{color:var(--cyan)}
  .post-label{font-size:9px}.post-label time{font-size:8px}.post-footer{font-size:10px}
  .social-links{margin-top:18px}
 }
+
+/* Rising cyan fill and a turning icon, inspired by ephs23's social hover study. */
+.social-links a{display:inline-flex;align-items:center;gap:12px;min-height:48px}
+.social-orb,.post-open{position:relative;isolation:isolate;overflow:hidden;display:grid;place-items:center;width:44px;height:44px;flex:none;border:1px solid #67e8f980;border-radius:50%;background:#11232d;color:var(--cyan)}
+.post-open{position:absolute;right:12px;bottom:12px}
+.social-orb:before,.post-open:before{content:'';position:absolute;inset:0;background:var(--cyan);transform:translateY(102%);transition:transform .4s cubic-bezier(.2,.7,.2,1);z-index:-1}
+.social-icon{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;transition:transform .5s,color .3s}
+.social-links a:is(:hover,:focus-visible) .social-orb:before,.social-card:is(:hover,:focus-visible) .post-open:before{transform:translateY(0)}
+.social-links a:is(:hover,:focus-visible) .social-icon,.social-card:is(:hover,:focus-visible) .social-icon{transform:rotateY(360deg);color:#10232b}
+.social-card:hover .post-open{background:#11232d}
+.social-links a:active .social-orb:before,.social-card:active .post-open:before{transform:translateY(0)}
+.image-unavailable .platform-art{font-size:14px;color:var(--muted)}
+@media(min-width:1000px){.social-card.image-unavailable:first-child .post-media{aspect-ratio:2.2}}
+@media(max-width:600px){.post-open{width:32px;height:32px;right:7px;bottom:7px}.post-open .social-icon{width:18px;height:18px}}
+@media(prefers-reduced-motion:reduce){.social-icon{transform:none!important}.social-orb:before,.post-open:before{transition:none}}

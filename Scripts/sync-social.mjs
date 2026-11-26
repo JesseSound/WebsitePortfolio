@@ -9,6 +9,19 @@ const old=JSON.parse(await readFile(target,'utf8').catch(()=>'{}'));
 const next={...old,checkedAt:new Date().toISOString(),sources:{...old.sources}};
 const decode=s=>s.replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&#39;/g,"'");
 async function get(url,headers={}){const r=await fetch(url,{headers,signal:AbortSignal.timeout(20000)});if(!r.ok)throw Error(`Source returned ${r.status}`);return r;}
+async function cacheInstagramImage(post){
+ const source=post.media_type==='VIDEO'?post.thumbnail_url:post.media_url;
+ const u=new URL(source);
+ if(u.protocol!=='https:'||!['cdninstagram.com','fbcdn.net'].some(h=>u.hostname===h||u.hostname.endsWith('.'+h)))throw Error('Unexpected image host');
+ if(!/^\d+$/.test(post.id))throw Error('Invalid media ID');
+ const response=await get(u);const type=response.headers.get('content-type')?.split(';')[0];
+ const ext={'image/jpeg':'jpg','image/png':'png','image/webp':'webp'}[type];
+ if(!ext)throw Error('Unsupported thumbnail format');
+ const bytes=Buffer.from(await response.arrayBuffer());if(bytes.length>10*1024*1024)throw Error('Thumbnail too large');
+ const dir=new URL('../portfolio/assets/social/',import.meta.url);await mkdir(dir,{recursive:true});
+ await writeFile(new URL(post.id+'.'+ext,dir),bytes);
+ return '/assets/social/'+post.id+'.'+ext;
+}
 let failed=false;
 try{
  const xml=await (await get('https://www.youtube.com/feeds/videos.xml?channel_id=UCbt2hIePC7_0A1Nij4onFuA')).text();
@@ -17,9 +30,9 @@ try{
  next.youtube=items.slice(0,9);next.sources.youtube={status:'ready',updatedAt:new Date().toISOString()};
 }catch(e){try{const html=await (await get('https://www.youtube.com/@jessesound/videos',{'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/130.0.0.0 Safari/537.36'})).text();next.youtube=parseChannelPage(html);next.sources.youtube={status:'ready',updatedAt:new Date().toISOString()};}catch{next.sources.youtube={...old.sources?.youtube,status:old.youtube?.length?'stale':'unavailable'};console.error('YouTube refresh failed; saved posts retained.');failed=true;}}
 if(process.env.INSTAGRAM_ACCESS_TOKEN && process.env.INSTAGRAM_USER_ID){
- try{const url=new URL(`https://graph.facebook.com/${process.env.INSTAGRAM_API_VERSION||'v27.0'}/${encodeURIComponent(process.env.INSTAGRAM_USER_ID)}/media`);url.searchParams.set('fields','id,caption,media_type,media_url,thumbnail_url,permalink,timestamp');url.searchParams.set('limit','9');const body=await (await get(url,{Authorization:`Bearer ${process.env.INSTAGRAM_ACCESS_TOKEN}`})).json();if(!Array.isArray(body.data))throw Error('Invalid Instagram response');next.instagram=body.data.map(p=>({id:p.id,platform:'instagram',title:p.caption?.slice(0,160)||'From Instagram',published:p.timestamp,url:p.permalink,image:p.media_type==='VIDEO'?p.thumbnail_url:p.media_url}));next.sources.instagram={status:'ready',updatedAt:new Date().toISOString()};}
+ try{const url=new URL(`https://graph.facebook.com/${process.env.INSTAGRAM_API_VERSION||'v27.0'}/${encodeURIComponent(process.env.INSTAGRAM_USER_ID)}/media`);url.searchParams.set('fields','id,caption,media_type,media_url,thumbnail_url,permalink,timestamp');url.searchParams.set('limit','9');const body=await (await get(url,{Authorization:`Bearer ${process.env.INSTAGRAM_ACCESS_TOKEN}`})).json();if(!Array.isArray(body.data))throw Error('Invalid Instagram response');next.instagram=await Promise.all(body.data.map(async p=>({id:p.id,platform:'instagram',title:p.caption?.slice(0,160)||'From Instagram',published:p.timestamp,url:p.permalink,image:await cacheInstagramImage(p)})));next.sources.instagram={status:'ready',updatedAt:new Date().toISOString()};}
  catch(e){next.sources.instagram={...old.sources?.instagram,status:old.instagram?.length?'stale':'unavailable'};console.error('Instagram:',e.message);failed=true;}
-}else next.sources.instagram={status:'not_connected'};
+}else {next.sources.instagram={...old.sources?.instagram,status:old.instagram?.length?'stale':'not_connected'};console.error('Instagram credentials missing; saved posts retained.');failed=true;}
 await mkdir(new URL('../portfolio/data/',import.meta.url),{recursive:true});await writeFile(target,JSON.stringify(next,null,2)+'\n');
 console.log(`Saved ${next.youtube?.length||0} YouTube posts and ${next.instagram?.length||0} Instagram posts.`);
 if(failed)process.exitCode=1;
